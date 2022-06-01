@@ -2,7 +2,7 @@
  *  Compilation:  javac LinearProbingHashST.java
  *  Execution:    java LinearProbingHashST < input.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/34hash/tinyST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/34hash/tinyST.txt
  *  
  *  Symbol-table implementation with linear-probing hash table.
  *
@@ -31,7 +31,7 @@ package edu.princeton.cs.algs4;
  *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
  *  Construction takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/34hash">Section 3.4</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/34hash">Section 3.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  For other implementations, see {@link ST}, {@link BinarySearchST},
  *  {@link SequentialSearchST}, {@link BST}, {@link RedBlackBST}, and
@@ -41,6 +41,8 @@ package edu.princeton.cs.algs4;
  *  @author Kevin Wayne
  */
 public class LinearProbingHashST<Key, Value> {
+
+    // must be a power of 2
     private static final int INIT_CAPACITY = 4;
 
     private int n;           // number of key-value pairs in the symbol table
@@ -100,9 +102,17 @@ public class LinearProbingHashST<Key, Value> {
         return get(key) != null;
     }
 
-    // hash function for keys - returns value between 0 and M-1
-    private int hash(Key key) {
+    // hash function for keys - returns value between 0 and m-1
+    private int hashTextbook(Key key) {
         return (key.hashCode() & 0x7fffffff) % m;
+    }
+
+    // hash function for keys - returns value between 0 and m-1 (assumes m is a power of 2)
+    // (from Java 7 implementation, protects against poor quality hashCode() implementations)
+    private int hash(Key key) {
+        int h = key.hashCode();
+        h ^= (h >>> 20) ^ (h >>> 12) ^ (h >>> 7) ^ (h >>> 4);
+        return h & (m-1);
     }
 
     // resizes the hash table to the given capacity by re-hashing all of the keys
@@ -263,7 +273,7 @@ public class LinearProbingHashST<Key, Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

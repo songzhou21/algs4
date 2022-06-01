@@ -27,7 +27,7 @@ package edu.princeton.cs.algs4;
  *  The amount of memory is constant - the data values are not stored.
  *  <p>
  *  For additional documentation, 
- *  see <a href="http://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
+ *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -89,6 +89,14 @@ public class Accumulator {
     }
 
     /**
+     * Returns a string representation of this accumulator.
+     * @return a string representation of this accumulator
+     */
+    public String toString() {
+        return "n = " + n + ", mean = " + mean() + ", stddev = " + stddev();
+    }
+
+    /**
      * Unit tests the {@code Accumulator} data type.
      * Reads in a stream of real number from standard input;
      * adds them to the accumulator; and prints the mean,
@@ -108,11 +116,12 @@ public class Accumulator {
         StdOut.printf("mean   = %.5f\n", stats.mean());
         StdOut.printf("stddev = %.5f\n", stats.stddev());
         StdOut.printf("var    = %.5f\n", stats.var());
+        StdOut.println(stats);
     }
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

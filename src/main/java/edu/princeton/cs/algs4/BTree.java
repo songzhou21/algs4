@@ -40,7 +40,7 @@ package edu.princeton.cs.algs4;
  *  Construction takes constant time.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/62btree">Section 6.2</a> of
+ *  <a href="https://algs4.cs.princeton.edu/62btree">Section 6.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class BTree<Key extends Comparable<Key>, Value>  {
@@ -67,7 +67,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
     // external nodes: only use key and value
     private static class Entry {
         private Comparable key;
-        private final Object val;
+        private Object val;
         private Node next;     // helper field to iterate over array entries
         public Entry(Comparable key, Object val, Node next) {
             this.key  = key;
@@ -184,6 +184,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
                     Node u = insert(h.children[j++].next, key, val, ht-1);
                     if (u == null) return null;
                     t.key = u.children[0].key;
+                    t.val = null;
                     t.next = u;
                     break;
                 }
@@ -289,7 +290,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

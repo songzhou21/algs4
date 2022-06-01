@@ -20,16 +20,17 @@ import java.util.Iterator;
  *  uses every edge in the digraph exactly once.
  *  <p>
  *  This implementation uses a nonrecursive depth-first search.
- *  The constructor runs in O(E + V) time, and uses O(V) extra space,
- *  where E is the number of edges and V the number of vertices
- *  All other methods take O(1) time.
+ *  The constructor take &Theta;(<em>E</em> + <em>V</em>) time
+ *  in the worst case, where <em>E</em> is the number of edges and
+ *  <em>V</em> is the number of vertices.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the digraph). 
  *  <p>
  *  To compute Eulerian cycles in digraphs, see {@link DirectedEulerianCycle}.
  *  To compute Eulerian cycles and paths in undirected graphs, see
  *  {@link EulerianCycle} and {@link EulerianPath}.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  * 
  * @author Robert Sedgewick
@@ -253,7 +254,7 @@ public class DirectedEulerianPath {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

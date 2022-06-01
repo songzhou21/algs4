@@ -2,7 +2,7 @@
  *  Compilation:  javac ResizingArrayStack.java
  *  Execution:    java ResizingArrayStack < input.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/13stacks/tobe.txt
+ *  Data files:   https://algs4.cs.princeton.edu/13stacks/tobe.txt
  *  
  *  Stack implementation with a resizing array.
  *
@@ -33,13 +33,17 @@ import java.util.NoSuchElementException;
  *  constant time in the worst case. 
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
 public class ResizingArrayStack<Item> implements Iterable<Item> {
+
+    // initial capacity of underlying resizing array
+    private static final int INIT_CAPACITY = 8;
+
     private Item[] a;         // array of items
     private int n;            // number of elements on stack
 
@@ -48,7 +52,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
      * Initializes an empty stack.
      */
     public ResizingArrayStack() {
-        a = (Item[]) new Object[2];
+        a = (Item[]) new Object[INIT_CAPACITY];
         n = 0;
     }
 
@@ -74,11 +78,11 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
         assert capacity >= n;
 
         // textbook implementation
-        Item[] temp = (Item[]) new Object[capacity];
+        Item[] copy = (Item[]) new Object[capacity];
         for (int i = 0; i < n; i++) {
-            temp[i] = a[i];
+            copy[i] = a[i];
         }
-        a = temp;
+        a = copy;
 
        // alternative implementation
        // a = java.util.Arrays.copyOf(a, capacity);
@@ -169,7 +173,7 @@ public class ResizingArrayStack<Item> implements Iterable<Item> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

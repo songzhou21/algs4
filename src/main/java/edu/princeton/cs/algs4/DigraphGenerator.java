@@ -15,7 +15,7 @@ package edu.princeton.cs.algs4;
  *  random rooted trees, random rooted DAGs, random tournaments, path digraphs,
  *  cycle digraphs, and the complete digraph.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -93,11 +93,17 @@ public class DigraphGenerator {
 
     /**
      * Returns the complete digraph on {@code V} vertices.
+     * In a complete digraph, every pair of distinct vertices is connected
+     * by two antiparallel edges. There are {@code V*(V-1)} edges.
      * @param V the number of vertices
      * @return the complete digraph on {@code V} vertices
      */
     public static Digraph complete(int V) {
-        return simple(V, V*(V-1));
+        Digraph G = new Digraph(V);
+        for (int v = 0; v < V; v++)
+            for (int w = 0; w < V; w++)
+                    if (v != w) G.addEdge(v, w);
+        return G;
     }
 
     /**
@@ -130,11 +136,10 @@ public class DigraphGenerator {
         return G;
     }
 
-    // tournament
     /**
      * Returns a random tournament digraph on {@code V} vertices. A tournament digraph
-     * is a DAG in which for every two vertices, there is one directed edge.
-     * A tournament is an oriented complete graph.
+     * is a digraph in which, for every pair of vertices, there is one and only one
+     * directed edge connecting them. A tournament is an oriented complete graph.
      * @param V the number of vertices
      * @return a random tournament digraph on {@code V} vertices
      */
@@ -146,6 +151,27 @@ public class DigraphGenerator {
                 else                          G.addEdge(w, v);
             }
         }
+        return G;
+    }
+
+    /**
+     * Returns a complete rooted-in DAG on {@code V} vertices.
+     * A rooted in-tree is a DAG in which there is a single vertex
+     * reachable from every other vertex. A complete rooted in-DAG
+     * has V*(V-1)/2 edges.
+     * @param V the number of vertices
+     * @return a complete rooted-in DAG on {@code V} vertices
+     */
+    public static Digraph completeRootedInDAG(int V) {
+        Digraph G = new Digraph(V);
+        int[] vertices = new int[V];
+        for (int i = 0; i < V; i++)
+            vertices[i] = i;
+        StdRandom.shuffle(vertices);
+        for (int i = 0; i < V; i++)
+            for (int j = i+1; j < V; j++)
+                 G.addEdge(vertices[i], vertices[j]);
+
         return G;
     }
 
@@ -187,6 +213,26 @@ public class DigraphGenerator {
                 G.addEdge(vertices[v], vertices[w]);
             }
         }
+        return G;
+    }
+
+    /**
+     * Returns a complete rooted-out DAG on {@code V} vertices.
+     * A rooted out-tree is a DAG in which every vertex is reachable
+     * from a single vertex. A complete rooted in-DAG has V*(V-1)/2 edges.
+     * @param V the number of vertices
+     * @return a complete rooted-out DAG on {@code V} vertices
+     */
+    public static Digraph completeRootedOutDAG(int V) {
+        Digraph G = new Digraph(V);
+        int[] vertices = new int[V];
+        for (int i = 0; i < V; i++)
+            vertices[i] = i;
+        StdRandom.shuffle(vertices);
+        for (int i = 0; i < V; i++)
+            for (int j = i+1; j < V; j++)
+                 G.addEdge(vertices[j], vertices[i]);
+
         return G;
     }
 
@@ -503,7 +549,7 @@ public class DigraphGenerator {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

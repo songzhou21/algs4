@@ -22,7 +22,7 @@ import java.util.Comparator;
  *  any coordinates that are -0.0 to +0.0.
  *  <p>
  *  For additional documentation, 
- *  see <a href="http://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
+ *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -94,7 +94,7 @@ public final class Point2D implements Comparable<Point2D> {
 
     /**
      * Returns the angle of this point in polar coordinates.
-     * @return the angle (in radians) of this point in polar coordiantes (between –&pi;/2 and &pi;/2)
+     * @return the angle (in radians) of this point in polar coordiantes (between –&pi; and &pi;)
      */
     public double theta() {
         return Math.atan2(y, x);
@@ -372,7 +372,7 @@ public final class Point2D implements Comparable<Point2D> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

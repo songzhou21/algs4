@@ -1,11 +1,11 @@
 /******************************************************************************
- *  Compilation:  javac WhiteFilter.java
- *  Execution:    java WhiteFilter whitelist.txt < input.txt
+ *  Compilation:  javac AllowFilter.java
+ *  Execution:    java AllowFilter allowlist.txt < input.txt
  *  Dependencies: SET In.java StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/35applications/tinyTale.txt
- *                http://algs4.cs.princeton.edu/35applications/list.txt
+ *  Data files:   https://algs4.cs.princeton.edu/35applications/tinyTale.txt
+ *                https://algs4.cs.princeton.edu/35applications/allowlist.txt
  * 
- *  Read in a whitelist of words from a file. Then read in a list of
+ *  Read in a allowlist of words from a file. Then read in a list of
  *  words from standard input and print out all those words that
  *  are in the first file.
  * 
@@ -19,7 +19,7 @@
  *  % more list.txt 
  *  was it the of 
  * 
- *  % java WhiteFilter list.txt < tinyTale.txt 
+ *  % java AllowFilter list.txt < tinyTale.txt 
  *  it was the of it was the of
  *  it was the of it was the of
  *  it was the of it was the of
@@ -31,21 +31,22 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code WhiteFilter} class provides a client for reading in a <em>whitelist</em>
+ *  The {@code AllowFilter} class provides a client for reading in an <em>allowlist</em>
  *  of words from a file; then, reading in a sequence of words from standard input,
  *  printing out each word that appears in the file.
  *  It is useful as a test client for various symbol table implementations.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
+ *  For additional documentation,
+ *  see <a href="https://algs4.cs.princeton.edu/35applications">Section 3.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class WhiteFilter {  
+public class AllowFilter {  
 
     // Do not instantiate.
-    private WhiteFilter() { }
+    private AllowFilter() { }
 
     public static void main(String[] args) {
         SET<String> set = new SET<String>();
@@ -67,7 +68,7 @@ public class WhiteFilter {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

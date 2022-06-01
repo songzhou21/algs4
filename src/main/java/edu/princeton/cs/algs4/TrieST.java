@@ -2,7 +2,7 @@
  *  Compilation:  javac TrieST.java
  *  Execution:    java TrieST < words.txt
  *  Dependencies: StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/52trie/shellsST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
  *
  *  A string symbol table for extended ASCII strings, implemented
  *  using a 256-way trie.
@@ -44,7 +44,7 @@ package edu.princeton.cs.algs4;
  *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
  *  Construction takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class TrieST<Value> {
@@ -177,7 +177,7 @@ public class TrieST<Value> {
 
     /**
      * Returns all of the keys in the symbol table that match {@code pattern},
-     * where . symbol is treated as a wildcard character.
+     * where the character '.' is interpreted as a wildcard character.
      * @param pattern the pattern
      * @return all of the keys in the symbol table that match {@code pattern},
      *     as an iterable, where . is treated as a wildcard character.
@@ -309,7 +309,7 @@ public class TrieST<Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

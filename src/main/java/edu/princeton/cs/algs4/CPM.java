@@ -2,7 +2,7 @@
  *  Compilation:  javac CPM.java
  *  Execution:    java CPM < input.txt
  *  Dependencies: EdgeWeightedDigraph.java AcyclicDigraphLP.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/jobsPC.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/jobsPC.txt
  *
  *  Critical path method.
  *
@@ -37,12 +37,12 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses {@link AcyclicLP} to find a longest
  *  path in a DAG.
- *  The running time is proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of jobs and <em>E</em> is the
- *  number of precedence constraints.
+ *  The program takes &Theta;(<em>V</em> + <em>E</em>) time in
+ *  the worst case, where <em>V</em> is the number of jobs and
+ *  <em>E</em> is the number of precedence constraints.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -99,7 +99,7 @@ public class CPM {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,7 +2,7 @@
  *  Compilation:  javac TopM.java
  *  Execution:    java TopM m < input.txt
  *  Dependencies: MinPQ.java Transaction.java StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/24pq/tinyBatch.txt
+ *  Data files:   https://algs4.cs.princeton.edu/24pq/tinyBatch.txt
  * 
  *  Given an integer m from the command line and an input stream where
  *  each line contains a String and a long value, this MinPQ client
@@ -26,7 +26,7 @@ package edu.princeton.cs.algs4;
  *  at most <em>m</em> + 1 to identify the <em>M</em> largest transactions
  *  and a {@link Stack} to output them in the proper order.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a>
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a>
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -70,7 +70,7 @@ public class TopM {
 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

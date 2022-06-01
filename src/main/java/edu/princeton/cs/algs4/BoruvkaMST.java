@@ -3,9 +3,9 @@
  *  Execution:    java BoruvkaMST filename.txt
  *  Dependencies: EdgeWeightedGraph.java Edge.java Bag.java
  *                UF.java In.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/43mst/tinyEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/mediumEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/largeEWG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/43mst/tinyEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/mediumEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/largeEWG.txt
  *
  *  Compute a minimum spanning forest using Boruvka's algorithm.
  *
@@ -35,14 +35,21 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses <em>Boruvka's algorithm</em> and the union-find
  *  data type.
- *  The constructor takes time proportional to <em>E</em> log <em>V</em>
- *  and extra space (not including the graph) proportional to <em>V</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code weight()} method takes constant time
- *  and the {@code edges()} method takes time proportional to <em>V</em>.
+ *  The constructor takes &Theta;(<em>E</em> log <em>V</em>) time in
+ *  the worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the
+ *  edge-weighted graph).
+ *  <p>
+ *  This {@code weight()} method correctly computes the weight of the MST
+ *  if all arithmetic performed is without floating-point rounding error
+ *  or arithmetic overflow.
+ *  This is the case if all edge weights are non-negative integers
+ *  and the weight of the MST does not exceed 2<sup>52</sup>.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  For alternate implementations, see {@link LazyPrimMST}, {@link PrimMST},
  *  and {@link KruskalMST}.
@@ -83,7 +90,7 @@ public class BoruvkaMST {
                 if (e != null) {
                     int v = e.either(), w = e.other(v);
                     // don't add the same edge twice
-                    if (!uf.connected(v, w)) {
+                    if (uf.find(v) != uf.find(w)) {
                         mst.add(e);
                         weight += e.weight();
                         uf.union(v, w);
@@ -116,7 +123,7 @@ public class BoruvkaMST {
 
     // is the weight of edge e strictly less than that of edge f?
     private static boolean less(Edge e, Edge f) {
-        return e.weight() < f.weight();
+        return e.compareTo(f) < 0;
     }
 
     // check optimality conditions (takes time proportional to E V lg* V)
@@ -136,7 +143,7 @@ public class BoruvkaMST {
         UF uf = new UF(G.V());
         for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
-            if (uf.connected(v, w)) {
+            if (uf.find(v) == uf.find(w)) {
                 System.err.println("Not a forest");
                 return false;
             }
@@ -146,7 +153,7 @@ public class BoruvkaMST {
         // check that it is a spanning forest
         for (Edge e : G.edges()) {
             int v = e.either(), w = e.other(v);
-            if (!uf.connected(v, w)) {
+            if (uf.find(v) != uf.find(w)) {
                 System.err.println("Not a spanning forest");
                 return false;
             }
@@ -165,7 +172,7 @@ public class BoruvkaMST {
             // check that e is min weight edge in crossing cut
             for (Edge f : G.edges()) {
                 int x = f.either(), y = f.other(x);
-                if (!uf.connected(x, y)) {
+                if (uf.find(x) != uf.find(y)) {
                     if (f.weight() < e.weight()) {
                         System.err.println("Edge " + f + " violates cut optimality conditions");
                         return false;
@@ -196,7 +203,7 @@ public class BoruvkaMST {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

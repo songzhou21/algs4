@@ -2,12 +2,12 @@
  *  Compilation:  javac DijkstraUndirectedSP.java
  *  Execution:    java DijkstraUndirectedSP input.txt s
  *  Dependencies: EdgeWeightedGraph.java IndexMinPQ.java Stack.java Edge.java
- *  Data files:   http://algs4.cs.princeton.edu/43mst/tinyEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/mediumEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/largeEWG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/43mst/tinyEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/mediumEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/largeEWG.txt
  *
  *  Dijkstra's algorithm. Computes the shortest path tree.
- *  Assumes all weights are nonnegative.
+ *  Assumes all weights are non-negative.
  *
  *  % java DijkstraUndirectedSP tinyEWG.txt 6
  *  6 to 0 (0.58)  6-0 0.58000
@@ -40,20 +40,29 @@ package edu.princeton.cs.algs4;
 /**
  *  The {@code DijkstraUndirectedSP} class represents a data type for solving
  *  the single-source shortest paths problem in edge-weighted graphs
- *  where the edge weights are nonnegative.
+ *  where the edge weights are non-negative.
  *  <p>
  *  This implementation uses Dijkstra's algorithm with a binary heap.
- *  The constructor takes time proportional to <em>E</em> log <em>V</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code distTo()} and {@code hasPathTo()} methods take
- *  constant time and the {@code pathTo()} method takes time proportional to the
- *  number of edges in the shortest path returned.
+ *  The constructor takes &Theta;(<em>E</em> log <em>V</em>) time in the
+ *  worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the
+ *  edge-weighted graph).
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *  See {@link DijkstraSP} for a version on edge-weighted digraphs.
- *
+ *  <p>
+ *  This correctly computes shortest paths if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  This is the case if all edge weights are integers and if none of the
+ *  intermediate results exceeds 2<sup>52</sup>. Since all intermediate
+ *  results are sums of edge weights, they are bounded by <em>V C</em>,
+ *  where <em>V</em> is the number of vertices and <em>C</em> is the maximum
+ *  weight of any edge.
+ *  <p>
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  *  @author Nate Liu
@@ -165,7 +174,7 @@ public class DijkstraUndirectedSP {
     // (ii) for all edge e = v-w on the SPT: distTo[w] == distTo[v] + e.weight()
     private boolean check(EdgeWeightedGraph G, int s) {
 
-        // check that edge weights are nonnegative
+        // check that edge weights are non-negative
         for (Edge e : G.edges()) {
             if (e.weight() < 0) {
                 System.err.println("negative edge weight detected");
@@ -250,7 +259,7 @@ public class DijkstraUndirectedSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

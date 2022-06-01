@@ -2,9 +2,9 @@
  *  Compilation:  javac EdgeWeightedGraph.java
  *  Execution:    java EdgeWeightedGraph filename.txt
  *  Dependencies: Bag.java Edge.java In.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/43mst/tinyEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/mediumEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/largeEWG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/43mst/tinyEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/mediumEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/largeEWG.txt
  *
  *  An edge-weighted undirected graph, implemented using adjacency lists.
  *  Parallel edges and self-loops are permitted.
@@ -24,26 +24,35 @@
 
 package edu.princeton.cs.algs4;
 
+import java.util.NoSuchElementException;
+
 /**
  *  The {@code EdgeWeightedGraph} class represents an edge-weighted
  *  graph of vertices named 0 through <em>V</em> – 1, where each
  *  undirected edge is of type {@link Edge} and has a real-valued weight.
  *  It supports the following two primary operations: add an edge to the graph,
  *  iterate over all of the edges incident to a vertex. It also provides
- *  methods for returning the number of vertices <em>V</em> and the number
- *  of edges <em>E</em>. Parallel edges and self-loops are permitted.
+ *  methods for returning the degree of a vertex, the number of vertices
+ *  <em>V</em> in the graph, and the number of edges <em>E</em> in the graph.
+ *  Parallel edges and self-loops are permitted.
  *  By convention, a self-loop <em>v</em>-<em>v</em> appears in the
  *  adjacency list of <em>v</em> twice and contributes two to the degree
  *  of <em>v</em>.
  *  <p>
- *  This implementation uses an adjacency-lists representation, which 
+ *  This implementation uses an <em>adjacency-lists representation</em>, which
  *  is a vertex-indexed array of {@link Bag} objects.
- *  All operations take constant time (in the worst case) except
- *  iterating over the edges incident to a given vertex, which takes
- *  time proportional to the number of such edges.
+ *  It uses &Theta;(<em>E</em> + <em>V</em>) space, where <em>E</em> is
+ *  the number of edges and <em>V</em> is the number of vertices.
+ *  All instance methods take &Theta;(1) time. (Though, iterating over
+ *  the edges returned by {@link #adj(int)} takes time proportional
+ *  to the degree of the vertex.)
+ *  Constructing an empty edge-weighted graph with <em>V</em> vertices takes
+ *  &Theta;(<em>V</em>) time; constructing a edge-weighted graph with
+ *  <em>E</em> edges and <em>V</em> vertices takes
+ *  &Theta;(<em>E</em> + <em>V</em>) time. 
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -63,7 +72,7 @@ public class EdgeWeightedGraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public EdgeWeightedGraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices must be nonnegative");
+        if (V < 0) throw new IllegalArgumentException("Number of vertices must be non-negative");
         this.V = V;
         this.E = 0;
         adj = (Bag<Edge>[]) new Bag[V];
@@ -82,7 +91,7 @@ public class EdgeWeightedGraph {
      */
     public EdgeWeightedGraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
+        if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -100,22 +109,36 @@ public class EdgeWeightedGraph {
      * with each entry separated by whitespace.
      *
      * @param  in the input stream
+     * @throws IllegalArgumentException if {@code in} is {@code null}
      * @throws IllegalArgumentException if the endpoints of any edge are not in prescribed range
      * @throws IllegalArgumentException if the number of vertices or edges is negative
      */
     public EdgeWeightedGraph(In in) {
-        this(in.readInt());
-        int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
-        for (int i = 0; i < E; i++) {
-            int v = in.readInt();
-            int w = in.readInt();
-            validateVertex(v);
-            validateVertex(w);
-            double weight = in.readDouble();
-            Edge e = new Edge(v, w, weight);
-            addEdge(e);
+        if (in == null) throw new IllegalArgumentException("argument is null");
+
+        try {
+            V = in.readInt();
+            adj = (Bag<Edge>[]) new Bag[V];
+            for (int v = 0; v < V; v++) {
+                adj[v] = new Bag<Edge>();
+            }
+
+            int E = in.readInt();
+            if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
+            for (int i = 0; i < E; i++) {
+                int v = in.readInt();
+                int w = in.readInt();
+                validateVertex(v);
+                validateVertex(w);
+                double weight = in.readDouble();
+                Edge e = new Edge(v, w, weight);
+                addEdge(e);
+            }
+        }   
+        catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("invalid input format in EdgeWeightedGraph constructor", e);
         }
+
     }
 
     /**
@@ -218,7 +241,7 @@ public class EdgeWeightedGraph {
                 if (e.other(v) > v) {
                     list.add(e);
                 }
-                // only add one copy of each self loop (self loops will be consecutive)
+                // add only one copy of each self loop (self loops will be consecutive)
                 else if (e.other(v) == v) {
                     if (selfLoops % 2 == 0) list.add(e);
                     selfLoops++;
@@ -262,7 +285,7 @@ public class EdgeWeightedGraph {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

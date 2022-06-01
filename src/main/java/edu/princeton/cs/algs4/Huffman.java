@@ -3,10 +3,10 @@
  *  Execution:    java Huffman - < input.txt   (compress)
  *  Execution:    java Huffman + < input.txt   (expand)
  *  Dependencies: BinaryIn.java BinaryOut.java
- *  Data files:   http://algs4.cs.princeton.edu/55compression/abra.txt
- *                http://algs4.cs.princeton.edu/55compression/tinytinyTale.txt
- *                http://algs4.cs.princeton.edu/55compression/medTale.txt
- *                http://algs4.cs.princeton.edu/55compression/tale.txt
+ *  Data files:   https://algs4.cs.princeton.edu/55compression/abra.txt
+ *                https://algs4.cs.princeton.edu/55compression/tinytinyTale.txt
+ *                https://algs4.cs.princeton.edu/55compression/medTale.txt
+ *                https://algs4.cs.princeton.edu/55compression/tale.txt
  *
  *  Compress or expand a binary input stream using the Huffman algorithm.
  *
@@ -28,7 +28,7 @@ package edu.princeton.cs.algs4;
  *  ASCII alphabet.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/55compress">Section 5.5</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -118,15 +118,9 @@ public class Huffman {
 
         // initialze priority queue with singleton trees
         MinPQ<Node> pq = new MinPQ<Node>();
-        for (char i = 0; i < R; i++)
-            if (freq[i] > 0)
-                pq.insert(new Node(i, freq[i], null, null));
-
-        // special case in case there is only one character with a nonzero frequency
-        if (pq.size() == 1) {
-            if (freq['\0'] == 0) pq.insert(new Node('\0', 0, null, null));
-            else                 pq.insert(new Node('\1', 0, null, null));
-        }
+        for (char c = 0; c < R; c++)
+            if (freq[c] > 0)
+                pq.insert(new Node(c, freq[c], null, null));
 
         // merge two smallest trees
         while (pq.size() > 1) {
@@ -213,7 +207,7 @@ public class Huffman {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

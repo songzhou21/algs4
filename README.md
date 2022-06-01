@@ -5,7 +5,8 @@ This <a href = "https://github.com/kevin-wayne/algs4">public repository</a>
 contains the Java <a href = "http://algs4.cs.princeton.edu/code/">source code</a>
 for the algorithms and clients in the textbook
 <a href = "http://amzn.to/13VNJi7">Algorithms, 4th Edition</a> by Robert Sedgewick and Kevin Wayne.
-This is the official version&mdash;it is actively maintained and updated by the authors.
+The official version at <a href = "https://github.com/kevin-wayne/algs4">https://github.com/kevin-wayne/algs4</a>
+is actively maintained and updated by the authors.
 The programs are organized in the package <code>edu.princeton.cs.algs4</code>.
 If you need only the class files (and not the source code), you can use
 <a href = "http://algs4.cs.princeton.edu/code/algs4.jar">algs4.jar</a> instead.
@@ -40,7 +41,7 @@ However, please do not store solutions to programming assignments in public repo
 
 ## Copyright
 
-Copyright &copy; 2000&ndash;2017 by Robert Sedgewick and Kevin Wayne.
+Copyright &copy; 2000&ndash;2019 by Robert Sedgewick and Kevin Wayne.
 
 ## License
 
@@ -61,6 +62,9 @@ Some of the code in this repository has been translated to other languages:
 <ul>
 <li><a href = "https://github.com/garyaiki/Scala-Algorithms">Scala</a> by Gary Struthers
 <li><a href = "https://github.com/nguyenqthai/Algs4Net">.NET</a> by Quoc Thai
+<li><a href = "https://github.com/itu-algorithms/itu.algs4">Python</a> by ITU Copenhagen
+<li><a href = "https://github.com/shellfly/algs4-py">Python</a> by Li Hao
+<li><a href = "https://github.com/shellfly/algo">Go</a> by Li Hao
 </ul>
 
 

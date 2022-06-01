@@ -27,11 +27,16 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This is a bare-bones implementation of the <em>simplex algorithm</em>.
  *  It uses Bland's rule to determing the entering and leaving variables.
- *  It is not suitable for use on large inputs. It is also not robust
- *  in the presence of floating-point roundoff error.
+ *  It is not suitable for use on large inputs. 
+ *  <p>
+ *  This computes correct results if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  In practice, there will be floating-point rounding error
+ *  and this implementation is not robust in the presence of 
+ *  such errors.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
+ *  <a href="https://algs4.cs.princeton.edu/65reductions">Section 6.5</a>
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -285,7 +290,15 @@ public class LinearProgramming {
 
 
     private static void test(double[][] A, double[] b, double[] c) {
-        LinearProgramming lp = new LinearProgramming(A, b, c);
+        LinearProgramming lp;
+        try {
+            lp = new LinearProgramming(A, b, c);
+        }
+        catch (ArithmeticException e) {
+            System.out.println(e);
+            return;
+        }
+
         StdOut.println("value = " + lp.value());
         double[] x = lp.primal();
         for (int i = 0; i < x.length; i++)
@@ -354,19 +367,19 @@ public class LinearProgramming {
 
         StdOut.println("----- test 1 --------------------");
         test1();
+        StdOut.println();
+
         StdOut.println("----- test 2 --------------------");
         test2();
+        StdOut.println();
+
         StdOut.println("----- test 3 --------------------");
-        try {
-            test3();
-        }
-        catch (ArithmeticException e) {
-            System.out.println(e);
-        }
+        test3();
+        StdOut.println();
 
         StdOut.println("----- test 4 --------------------");
         test4();
-
+        StdOut.println();
 
         StdOut.println("----- test random ---------------");
         int m = Integer.parseInt(args[0]);
@@ -382,13 +395,13 @@ public class LinearProgramming {
             for (int j = 0; j < n; j++)
                 A[i][j] = StdRandom.uniform(100);
         LinearProgramming lp = new LinearProgramming(A, b, c);
-        StdOut.println(lp.value());
+        test(A, b, c);
     }
 
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

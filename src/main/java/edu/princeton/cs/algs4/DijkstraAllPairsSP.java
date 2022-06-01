@@ -6,6 +6,8 @@
  *  Dijkstra's algorithm run from each vertex. 
  *  Takes time proportional to E V log V and space proportional to EV.
  *
+ *  % java DijkstraAllPairsSP tinyEWD.txt
+ *
  ******************************************************************************/
 
 package edu.princeton.cs.algs4;
@@ -13,18 +15,18 @@ package edu.princeton.cs.algs4;
 /**
  *  The {@code DijkstraAllPairsSP} class represents a data type for solving the
  *  all-pairs shortest paths problem in edge-weighted digraphs
- *  where the edge weights are nonnegative.
+ *  where the edge weights are non-negative.
  *  <p>
  *  This implementation runs Dijkstra's algorithm from each vertex.
- *  The constructor takes time proportional to <em>V</em> (<em>E</em> log <em>V</em>)
- *  and uses space proprtional to <em>V</em><sup>2</sup>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code dist()} and {@code hasPath()} methods take
- *  constant time and the {@code path()} method takes time proportional to the
- *  number of edges in the shortest path returned.
+ *  The constructor takes &Theta;(<em>V</em> (<em>E</em> log <em>V</em>)) time
+ *  in the worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em><sup>2</sup>) extra space (not including the
+ *  edge-weighted digraph).
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -98,10 +100,56 @@ public class DijkstraAllPairsSP {
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
 
+
+    /**
+     * Unit tests the {@code DijkstraAllPairsSP} data type.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+
+        // read edge-weighted digraph
+        In in = new In(args[0]);
+        EdgeWeightedDigraph G = new EdgeWeightedDigraph(in);
+
+        // compute shortest paths between all pairs of vertices
+        DijkstraAllPairsSP spt = new DijkstraAllPairsSP(G);
+
+        // print all-pairs shortest path distances
+        StdOut.printf("  ");
+        for (int v = 0; v < G.V(); v++) {
+            StdOut.printf("%6d ", v);
+        }
+        StdOut.println();
+        for (int v = 0; v < G.V(); v++) {
+            StdOut.printf("%3d: ", v);
+            for (int w = 0; w < G.V(); w++) {
+                if (spt.hasPath(v, w)) StdOut.printf("%6.2f ", spt.dist(v, w));
+                else StdOut.printf("  Inf ");
+            }
+            StdOut.println();
+        }
+        StdOut.println();
+
+        // print all-pairs shortest paths
+        for (int v = 0; v < G.V(); v++) {
+            for (int w = 0; w < G.V(); w++) {
+                if (spt.hasPath(v, w)) {
+                    StdOut.printf("%d to %d (%5.2f)  ", v, w, spt.dist(v, w));
+                    for (DirectedEdge e : spt.path(v, w))
+                        StdOut.print(e + "  ");
+                    StdOut.println();
+                }
+                else {
+                    StdOut.printf("%d to %d no path\n", v, w);
+                }
+            }
+        }
+    }
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

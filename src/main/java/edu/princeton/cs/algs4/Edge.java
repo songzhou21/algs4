@@ -17,7 +17,7 @@ package edu.princeton.cs.algs4;
  *  the weight. The natural order for this data type is by
  *  ascending order of weight.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -41,8 +41,8 @@ public class Edge implements Comparable<Edge> {
      * @throws IllegalArgumentException if {@code weight} is {@code NaN}
      */
     public Edge(int v, int w, double weight) {
-        if (v < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
-        if (w < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
+        if (v < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
+        if (w < 0) throw new IllegalArgumentException("vertex index must be a non-negative integer");
         if (Double.isNaN(weight)) throw new IllegalArgumentException("Weight is NaN");
         this.v = v;
         this.w = w;
@@ -117,7 +117,7 @@ public class Edge implements Comparable<Edge> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

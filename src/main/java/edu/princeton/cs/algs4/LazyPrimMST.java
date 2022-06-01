@@ -3,9 +3,9 @@
  *  Execution:    java LazyPrimMST filename.txt
  *  Dependencies: EdgeWeightedGraph.java Edge.java Queue.java
  *                MinPQ.java UF.java In.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/43mst/tinyEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/mediumEWG.txt
- *                http://algs4.cs.princeton.edu/43mst/largeEWG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/43mst/tinyEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/mediumEWG.txt
+ *                https://algs4.cs.princeton.edu/43mst/largeEWG.txt
  *
  *  Compute a minimum spanning forest using a lazy version of Prim's 
  *  algorithm.
@@ -53,14 +53,15 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses a lazy version of <em>Prim's algorithm</em>
  *  with a binary heap of edges.
- *  The constructor takes time proportional to <em>E</em> log <em>E</em>
- *  and extra space (not including the graph) proportional to <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code weight()} method takes constant time
- *  and the {@code edges()} method takes time proportional to <em>V</em>.
+ *  The constructor takes &Theta;(<em>E</em> log <em>E</em>) time in
+ *  the worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>E</em>) extra space in the worst case
+ *  (not including the edge-weighted graph).
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/43mst">Section 4.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  For alternate implementations, see {@link PrimMST}, {@link KruskalMST},
  *  and {@link BoruvkaMST}.
@@ -73,7 +74,7 @@ public class LazyPrimMST {
 
     private double weight;       // total weight of MST
     private Queue<Edge> mst;     // edges in the MST
-    private boolean[] marked;    // marked[v] = true if v on tree
+    private boolean[] marked;    // marked[v] = true iff v on tree
     private MinPQ<Edge> pq;      // edges with one endpoint in tree
 
     /**
@@ -148,7 +149,7 @@ public class LazyPrimMST {
         UF uf = new UF(G.V());
         for (Edge e : edges()) {
             int v = e.either(), w = e.other(v);
-            if (uf.connected(v, w)) {
+            if (uf.find(v) == uf.find(w)) {
                 System.err.println("Not a forest");
                 return false;
             }
@@ -158,7 +159,7 @@ public class LazyPrimMST {
         // check that it is a spanning forest
         for (Edge e : G.edges()) {
             int v = e.either(), w = e.other(v);
-            if (!uf.connected(v, w)) {
+            if (uf.find(v) != uf.find(w)) {
                 System.err.println("Not a spanning forest");
                 return false;
             }
@@ -177,7 +178,7 @@ public class LazyPrimMST {
             // check that e is min weight edge in crossing cut
             for (Edge f : G.edges()) {
                 int x = f.either(), y = f.other(x);
-                if (!uf.connected(x, y)) {
+                if (uf.find(x) != uf.find(y)) {
                     if (f.weight() < e.weight()) {
                         System.err.println("Edge " + f + " violates cut optimality conditions");
                         return false;
@@ -209,7 +210,7 @@ public class LazyPrimMST {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

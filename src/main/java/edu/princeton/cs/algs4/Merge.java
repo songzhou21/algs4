@@ -2,8 +2,8 @@
  *  Compilation:  javac Merge.java
  *  Execution:    java Merge < input.txt
  *  Dependencies: StdOut.java StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/22mergesort/tiny.txt
- *                http://algs4.cs.princeton.edu/22mergesort/words3.txt
+ *  Data files:   https://algs4.cs.princeton.edu/22mergesort/tiny.txt
+ *                https://algs4.cs.princeton.edu/22mergesort/words3.txt
  *   
  *  Sorts a sequence of strings from standard input using mergesort.
  *   
@@ -25,9 +25,19 @@ package edu.princeton.cs.algs4;
 
 /**
  *  The {@code Merge} class provides static methods for sorting an
- *  array using mergesort.
+ *  array using a top-down, recursive version of <em>mergesort</em>.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/22mergesort">Section 2.2</a> of
+ *  This implementation takes &Theta;(<em>n</em> log <em>n</em>) time
+ *  to sort any array of length <em>n</em> (assuming comparisons
+ *  take constant time). It makes between
+ *  ~ &frac12; <em>n</em> log<sub>2</sub> <em>n</em> and
+ *  ~ 1 <em>n</em> log<sub>2</sub> <em>n</em> compares.
+ *  <p>
+ *  This sorting algorithm is stable.
+ *  It uses &Theta;(<em>n</em>) extra memory (not including the input array).
+ *  <p>
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/22mergesort">Section 2.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *  For an optimized version, see {@link MergeX}.
  *
@@ -174,7 +184,7 @@ public class Merge {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,7 +2,7 @@
  *  Compilation:  javac LinkedStack.java
  *  Execution:    java LinkedStack < input.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/13stacks/tobe.txt
+ *  Data files:   https://algs4.cs.princeton.edu/13stacks/tobe.txt
  *
  *  A generic stack, implemented using a linked list. Each stack
  *  element is of type Item.
@@ -28,13 +28,13 @@ import java.util.NoSuchElementException;
  *  for peeking at the top item, testing if the stack is empty, and iterating through
  *  the items in LIFO order.
  *  <p>
- *  This implementation uses a singly-linked list with a non-static nested class for 
+ *  This implementation uses a singly linked list with a non-static nested class for 
  *  linked-list nodes. See {@link Stack} for a version that uses a static nested class.
  *  The <em>push</em>, <em>pop</em>, <em>peek</em>, <em>size</em>, and <em>is-empty</em>
  *  operations all take constant time in the worst case.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/13stacks">Section 1.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -129,11 +129,11 @@ public class LinkedStack<Item> implements Iterable<Item> {
      * @return an iterator to this stack that iterates through the items in LIFO order.
      */
     public Iterator<Item> iterator() {
-        return new ListIterator();
+        return new LinkedIterator();
     }
 
     // an iterator, doesn't implement remove() since it's optional
-    private class ListIterator implements Iterator<Item> {
+    private class LinkedIterator implements Iterator<Item> {
         private Node current = first;
         public boolean hasNext()  { return current != null;                     }
         public void remove()      { throw new UnsupportedOperationException();  }
@@ -196,7 +196,7 @@ public class LinkedStack<Item> implements Iterable<Item> {
 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

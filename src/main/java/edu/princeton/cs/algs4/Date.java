@@ -14,7 +14,7 @@ package edu.princeton.cs.algs4;
  *  date (day, month, and year).
  *  <p>
  *  For additional documentation, 
- *  see <a href="http://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
+ *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -133,8 +133,8 @@ public class Date implements Comparable<Date> {
      *
      * @return the value {@code 0} if the argument date is equal to this date;
      *         a negative integer if this date is chronologically less than
-     *         the argument date; and a positive ineger if this date is chronologically
-     *         after the argument date
+     *         the argument date; and a positive integer if this date is
+     *         chronologically after the argument date
      */
     @Override
     public int compareTo(Date that) {
@@ -179,11 +179,7 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public int hashCode() {
-        int hash = 17;
-        hash = 31*hash + month;
-        hash = 31*hash + day;
-        hash = 31*hash + year;
-        return hash;
+        return day + 31*month + 31*12*year;
     }
 
     /**
@@ -215,7 +211,7 @@ public class Date implements Comparable<Date> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

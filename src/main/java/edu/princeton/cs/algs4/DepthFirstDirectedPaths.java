@@ -2,9 +2,9 @@
  *  Compilation:  javac DepthFirstDirectedPaths.java
  *  Execution:    java DepthFirstDirectedPaths digraph.txt s
  *  Dependencies: Digraph.java Stack.java
- *  Data files:   http://algs4.cs.princeton.edu/42digraph/tinyDG.txt
- *                http://algs4.cs.princeton.edu/42digraph/mediumDG.txt
- *                http://algs4.cs.princeton.edu/42digraph/largeDG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/42digraph/tinyDG.txt
+ *                https://algs4.cs.princeton.edu/42digraph/mediumDG.txt
+ *                https://algs4.cs.princeton.edu/42digraph/largeDG.txt
  *
  *  Determine reachability in a digraph from a given vertex using
  *  depth-first search.
@@ -30,24 +30,27 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code DepthFirstDirectedPaths} class represents a data type for finding
- *  directed paths from a source vertex <em>s</em> to every
+ *  The {@code DepthFirstDirectedPaths} class represents a data type for
+ *  finding directed paths from a source vertex <em>s</em> to every
  *  other vertex in the digraph.
  *  <p>
  *  This implementation uses depth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  It uses extra space (not including the graph) proportional to <em>V</em>.
+ *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ *  worst case, where <em>V</em> is the number of vertices and <em>E</em>
+ *  is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the digraph).
  *  <p>
+ *  See {@link DepthFirstDirectedPaths} for a nonrecursive implementation.
  *  For additional documentation,  
- *  see <a href="http://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of  
+ *  see <a href="https://algs4.cs.princeton.edu/42digraph">Section 4.2</a> of  
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
 public class DepthFirstDirectedPaths {
-    private boolean[] marked;  // marked[v] = true if v is reachable from s
+    private boolean[] marked;  // marked[v] = true iff v is reachable from s
     private int[] edgeTo;      // edgeTo[v] = last edge on path from s to v
     private final int s;       // source vertex
 
@@ -146,7 +149,7 @@ public class DepthFirstDirectedPaths {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,11 +2,11 @@
  *  Compilation:  javac SymbolGraph.java
  *  Execution:    java SymbolGraph filename.txt delimiter
  *  Dependencies: ST.java Graph.java In.java StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/41graph/routes.txt
- *                http://algs4.cs.princeton.edu/41graph/movies.txt
- *                http://algs4.cs.princeton.edu/41graph/moviestiny.txt
- *                http://algs4.cs.princeton.edu/41graph/moviesG.txt
- *                http://algs4.cs.princeton.edu/41graph/moviestopGrossing.txt
+ *  Data files:   https://algs4.cs.princeton.edu/41graph/routes.txt
+ *                https://algs4.cs.princeton.edu/41graph/movies.txt
+ *                https://algs4.cs.princeton.edu/41graph/moviestiny.txt
+ *                https://algs4.cs.princeton.edu/41graph/moviesG.txt
+ *                https://algs4.cs.princeton.edu/41graph/moviestopGrossing.txt
  *  
  *  %  java SymbolGraph routes.txt " "
  *  JFK
@@ -59,7 +59,7 @@ package edu.princeton.cs.algs4;
  *  proportional to log <em>V</em>, where <em>V</em> is the number of vertices.
  *  The <em>nameOf</em> operation takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -92,9 +92,8 @@ public class SymbolGraph {
                     st.put(a[i], st.size());
             }
         }
-        StdOut.println("Done reading " + filename);
 
-        // inverted index to get string keys in an aray
+        // inverted index to get string keys in an array
         keys = new String[st.size()];
         for (String name : st.keys()) {
             keys[st.get(name)] = name;
@@ -190,7 +189,7 @@ public class SymbolGraph {
 
     // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
-         int V = graph.V();
+        int V = graph.V();
         if (v < 0 || v >= V)
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
     }
@@ -222,7 +221,7 @@ public class SymbolGraph {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

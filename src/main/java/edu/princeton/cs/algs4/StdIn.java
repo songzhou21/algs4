@@ -30,7 +30,16 @@ import java.util.regex.Pattern;
  *  </ul>
  *  <p>
  *  Generally, it is best not to mix functions from the different
- *  categories in the same program. 
+ *  categories in the same program.
+ *  <p>
+ *  <b>Getting started.</b>
+ *  To use this class, you must have {@code StdIn.class} in your
+ *  Java classpath. If you used our autoinstaller, you should be all set.
+ *  Otherwise, either download
+ *  <a href = "https://introcs.cs.princeton.edu/java/code/stdlib.jar">stdlib.jar</a>
+ *  and add to your Java classpath or download
+ *  <a href = "https://introcs.cs.princeton.edu/java/stdlib/StdIn.java">StdIn.java</a>
+ *  and put a copy in your working directory.
  *  <p>
  *  <b>Reading tokens from standard input and converting to numbers and strings.</b>
  *  You can use the following methods to read numbers, strings, and booleans
@@ -47,7 +56,7 @@ import java.util.regex.Pattern;
  *  <li> {@link #readBoolean()}
  *  </ul>
  *  <p>
- *  The first method returns true if standard input has more tokens.
+ *  The first method returns true if standard input has no more tokens.
  *  Each other method skips over any input that is whitespace. Then, it reads
  *  the next token and attempts to convert it into a value of the specified
  *  type. If it succeeds, it returns that value; otherwise, it
@@ -71,7 +80,6 @@ import java.util.regex.Pattern;
  *      double value = StdIn.readDouble();
  *      StdOut.println(value);
  *  }
- *  StdOut.println(sum);
  *  </pre>
  *  <p>
  *  <b>Reading characters from standard input.</b>
@@ -175,7 +183,7 @@ import java.util.regex.Pattern;
  *  {@code Scanner} was introduced, this class was re-implemented to use {@code Scanner}.
  *  <p>
  *  <b>Using standard input.</b>
- *  Standard input is fundamental operating system abstraction, on Mac OS X,
+ *  Standard input is a fundamental operating system abstraction on Mac OS X,
  *  Windows, and Linux.
  *  The methods in {@code StdIn} are <em>blocking</em>, which means that they
  *  will wait until you enter input on standard input.
@@ -194,7 +202,7 @@ import java.util.regex.Pattern;
  *  <p>
  *  <b>Reference.</b> 
  *  For additional documentation,
- *  see <a href="http://introcs.cs.princeton.edu/15inout">Section 1.5</a> of   
+ *  see <a href="https://introcs.cs.princeton.edu/15inout">Section 1.5</a> of   
  *  <em>Computer Science: An Interdisciplinary Approach</em>
  *  by Robert Sedgewick and Kevin Wayne.
  *
@@ -306,7 +314,8 @@ public final class StdIn {
             return ch.charAt(0);
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'char' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'char' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }  
 
@@ -329,7 +338,7 @@ public final class StdIn {
 
 
    /**
-     * Reads the next token  and returns the {@code String}.
+     * Reads the next token from standard input and returns it as a {@code String}.
      *
      * @return the next {@code String}
      * @throws NoSuchElementException if standard input is empty
@@ -339,7 +348,8 @@ public final class StdIn {
             return scanner.next();
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'String' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'String' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }
 
@@ -356,10 +366,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read an 'int' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read an 'int' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attemps to read an 'int' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attemps to read an 'int' value from standard input, "
+                                           + "but no more tokens are available");
         }
 
     }
@@ -377,10 +389,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read a 'double' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'double' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'double' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'double' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }
 
@@ -397,10 +411,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read a 'float' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'float' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'float' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'float' value from standard input, "
+                                           + "but there no more tokens are available");
         }
     }
 
@@ -417,10 +433,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read a 'long' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'long' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'long' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'long' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }
 
@@ -437,10 +455,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read a 'short' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'short' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'short' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'short' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }
 
@@ -457,10 +477,12 @@ public final class StdIn {
         }
         catch (InputMismatchException e) {
             String token = scanner.next();
-            throw new InputMismatchException("attempts to read a 'byte' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'byte' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'byte' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'byte' value from standard input, "
+                                           + "but no more tokens are available");
         }
     }
 
@@ -481,10 +503,12 @@ public final class StdIn {
             if ("false".equalsIgnoreCase(token)) return false;
             if ("1".equals(token))               return true;
             if ("0".equals(token))               return false;
-            throw new InputMismatchException("attempts to read a 'boolean' value from standard input, but the next token is \"" + token + "\"");
+            throw new InputMismatchException("attempts to read a 'boolean' value from standard input, "
+                                           + "but the next token is \"" + token + "\"");
         }
         catch (NoSuchElementException e) {
-            throw new NoSuchElementException("attempts to read a 'boolean' value from standard input, but there are no more tokens available");
+            throw new NoSuchElementException("attempts to read a 'boolean' value from standard input, "
+                                           + "but no more tokens are available");
         }
 
     }
@@ -648,7 +672,7 @@ public final class StdIn {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

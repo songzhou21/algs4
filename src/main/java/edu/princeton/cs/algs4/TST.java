@@ -2,7 +2,7 @@
  *  Compilation:  javac TST.java
  *  Execution:    java TST < words.txt
  *  Dependencies: StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/52trie/shellsST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
  *
  *  Symbol table with string keys, implemented using a ternary search
  *  trie (TST).
@@ -57,7 +57,7 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses a ternary search trie.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class TST<Value> {
@@ -139,6 +139,7 @@ public class TST<Value> {
             throw new IllegalArgumentException("calls put() with null key");
         }
         if (!contains(key)) n++;
+        else if(val == null) n--;       // delete existing key
         root = put(root, key, val, 0);
     }
 
@@ -228,7 +229,7 @@ public class TST<Value> {
 
     /**
      * Returns all of the keys in the symbol table that match {@code pattern},
-     * where . symbol is treated as a wildcard character.
+     * where the character '.' is interpreted as a wildcard character.
      * @param pattern the pattern
      * @return all of the keys in the symbol table that match {@code pattern},
      *     as an iterable, where . is treated as a wildcard character.
@@ -297,7 +298,7 @@ public class TST<Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

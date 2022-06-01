@@ -29,7 +29,7 @@ import java.util.NoSuchElementException;
  *  time proportional to <em>V</em>.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -48,7 +48,7 @@ public class AdjMatrixEdgeWeightedDigraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public AdjMatrixEdgeWeightedDigraph(int V) {
-        if (V < 0) throw new IllegalArgumentException("number of vertices must be nonnegative");
+        if (V < 0) throw new IllegalArgumentException("number of vertices must be non-negative");
         this.V = V;
         this.E = 0;
         this.adj = new DirectedEdge[V][V];
@@ -63,7 +63,7 @@ public class AdjMatrixEdgeWeightedDigraph {
      */
     public AdjMatrixEdgeWeightedDigraph(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
+        if (E < 0) throw new IllegalArgumentException("number of edges must be non-negative");
         if (E > V*V) throw new IllegalArgumentException("too many edges");
 
         // can be inefficient
@@ -192,7 +192,7 @@ public class AdjMatrixEdgeWeightedDigraph {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

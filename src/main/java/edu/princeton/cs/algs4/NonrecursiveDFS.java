@@ -2,31 +2,36 @@
  *  Compilation:  javac NonrecursiveDFS.java
  *  Execution:    java NonrecursiveDFS graph.txt s
  *  Dependencies: Graph.java Queue.java Stack.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/41graph/tinyCG.txt
- *                http://algs4.cs.princeton.edu/41graph/tinyG.txt
- *                http://algs4.cs.princeton.edu/41graph/mediumG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/41graph/tinyCG.txt
+ *                https://algs4.cs.princeton.edu/41graph/tinyG.txt
+ *                https://algs4.cs.princeton.edu/41graph/mediumG.txt
  *
  *  Run nonrecurisve depth-first search on an undirected graph.
- *  Runs in O(E + V) time.
+ *  Runs in O(E + V) time using O(V) extra space.
  *
  *  Explores the vertices in exactly the same order as DepthFirstSearch.java.
  *
- *  %  java Graph tinyCG.txt
- *  6 8
- *  0: 2 1 5 
- *  1: 0 2 
- *  2: 0 1 3 4 
- *  3: 5 4 2 
- *  4: 3 2 
- *  5: 3 0 
+ *  %  java Graph tinyG.txt
+ *  13 vertices, 13 edges 
+ *  0: 6 2 1 5 
+ *  1: 0 
+ *  2: 0 
+ *  3: 5 4 
+ *  4: 5 6 3 
+ *  5: 3 4 0 
+ *  6: 0 4 
+ *  7: 8 
+ *  8: 7 
+ *  9: 11 10 12 
+ *  10: 9 
+ *  11: 9 12 
+ *  12: 11 9 
  *
- *  %  java NonrecursiveDFS tinyCG.txt 0
- *  0 to 0 (0):  0
- *  0 to 1 (1):  0-1
- *  0 to 2 (1):  0-2
- *  0 to 3 (2):  0-2-3
- *  0 to 4 (2):  0-2-4
- *  0 to 5 (1):  0-5
+ *  % java NonrecursiveDFS tinyG.txt 0
+ *  0 1 2 3 4 5 6 
+ *
+ * % java NonrecursiveDFS tinyG.txt 9
+ * 9 10 11 12 
  *
  ******************************************************************************/
 
@@ -41,11 +46,15 @@ import java.util.Iterator;
  *  <p>
  *  This implementation uses a nonrecursive version of depth-first search
  *  with an explicit stack.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  It uses extra space (not including the graph) proportional to <em>V</em>.
+ *  See {@link DepthFirstSearch} for the classic recursive version.
+ *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the worst
+ *  case, where <em>V</em> is the number of vertices and <em>E</em> is the
+ *  number of edges.
+ *  The {@link #marked(int)} instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the graph). 
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
+ *  For additional documentation,
+ *  see <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -133,7 +142,7 @@ public class NonrecursiveDFS {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

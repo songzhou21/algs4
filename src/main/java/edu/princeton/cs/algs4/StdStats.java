@@ -39,7 +39,7 @@ package edu.princeton.cs.algs4;
  *  sample variance.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://introcs.cs.princeton.edu/22library">Section 2.2</a> of
+ *  <a href="https://introcs.cs.princeton.edu/22library">Section 2.2</a> of
  *  <i>Computer Science: An Interdisciplinary Approach</i>
  *  by Robert Sedgewick and Kevin Wayne.
  *
@@ -454,7 +454,7 @@ public final class StdStats {
 
    /**
      * Plots the points (0, <em>a</em><sub>0</sub>), (1, <em>a</em><sub>1</sub>), ...,
-     * (<em>n</em>–1, <em>a</em><sub><em>n</em>–1</sub>) to standard draw.
+     * (<em>n</em>-1, <em>a</em><sub><em>n</em>-1</sub>) to standard draw.
      *
      * @param a the array of values
      */
@@ -535,7 +535,7 @@ public final class StdStats {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

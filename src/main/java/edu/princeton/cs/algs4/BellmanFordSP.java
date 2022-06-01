@@ -3,8 +3,10 @@
  *  Execution:    java BellmanFordSP filename.txt s
  *  Dependencies: EdgeWeightedDigraph.java DirectedEdge.java Queue.java
  *                EdgeWeightedDirectedCycle.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
- *                http://algs4.cs.princeton.edu/44sp/mediumEWDnc.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt
+ *                https://algs4.cs.princeton.edu/44sp/tinyEWDnc.txt
+ *                https://algs4.cs.princeton.edu/44sp/mediumEWD.txt
+ *                https://algs4.cs.princeton.edu/44sp/largeEWD.txt
  *
  *  Bellman-Ford shortest path algorithm. Computes the shortest path tree in
  *  edge-weighted digraph G from vertex s, or finds a negative cost cycle
@@ -37,22 +39,34 @@ package edu.princeton.cs.algs4;
  *  This class finds either a shortest path from the source vertex <em>s</em>
  *  to every other vertex or a negative cycle reachable from the source vertex.
  *  <p>
- *  This implementation uses the Bellman-Ford-Moore algorithm.
- *  The constructor takes time proportional to <em>V</em> (<em>V</em> + <em>E</em>)
- *  in the worst case, where <em>V</em> is the number of vertices and <em>E</em>
- *  is the number of edges.
- *  Afterwards, the {@code distTo()}, {@code hasPathTo()}, and {@code hasNegativeCycle()}
- *  methods take constant time; the {@code pathTo()} and {@code negativeCycle()}
- *  method takes time proportional to the number of edges returned.
+ *  This implementation uses a queue-based implementation of 
+ *  the Bellman-Ford-Moore algorithm.
+ *  The constructor takes &Theta;(<em>E</em> <em>V</em>) time
+ *  in the worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges. In practice, it performs much better.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the
+ *  edge-weighted digraph).
+ *  <p>
+ *  This correctly computes shortest paths if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  This is the case if all edge weights are integers and if none of the
+ *  intermediate results exceeds 2<sup>52</sup>. Since all intermediate
+ *  results are sums of edge weights, they are bounded by <em>V C</em>,
+ *  where <em>V</em> is the number of vertices and <em>C</em> is the maximum
+ *  absolute value of any edge weight.
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
 public class BellmanFordSP {
+    // for floating-point precision issues
+    private static final double EPSILON = 1E-14;
+
     private double[] distTo;               // distTo[v] = distance  of shortest s->v path
     private DirectedEdge[] edgeTo;         // edgeTo[v] = last edge on shortest s->v path
     private boolean[] onQueue;             // onQueue[v] = is v currently on the queue?
@@ -92,7 +106,7 @@ public class BellmanFordSP {
     private void relax(EdgeWeightedDigraph G, int v) {
         for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
-            if (distTo[w] > distTo[v] + e.weight()) {
+            if (distTo[w] > distTo[v] + e.weight() + EPSILON) {
                 distTo[w] = distTo[v] + e.weight();
                 edgeTo[w] = e;
                 if (!onQueue[w]) {
@@ -100,7 +114,7 @@ public class BellmanFordSP {
                     onQueue[w] = true;
                 }
             }
-            if (cost++ % G.V() == 0) {
+            if (++cost % G.V() == 0) {
                 findNegativeCycle();
                 if (hasNegativeCycle()) return;  // found a negative cycle
             }
@@ -297,7 +311,7 @@ public class BellmanFordSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

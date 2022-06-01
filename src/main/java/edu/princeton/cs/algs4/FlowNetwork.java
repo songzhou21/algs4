@@ -27,7 +27,7 @@ package edu.princeton.cs.algs4;
  *  time proportional to the number of such edges.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -46,7 +46,7 @@ public class FlowNetwork {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public FlowNetwork(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices in a Graph must be nonnegative");
+        if (V < 0) throw new IllegalArgumentException("Number of vertices in a Graph must be non-negative");
         this.V = V;
         this.E = 0;
         adj = (Bag<FlowEdge>[]) new Bag[V];
@@ -64,7 +64,7 @@ public class FlowNetwork {
      */
     public FlowNetwork(int V, int E) {
         this(V);
-        if (E < 0) throw new IllegalArgumentException("Number of edges must be nonnegative");
+        if (E < 0) throw new IllegalArgumentException("Number of edges must be non-negative");
         for (int i = 0; i < E; i++) {
             int v = StdRandom.uniform(V);
             int w = StdRandom.uniform(V);
@@ -86,7 +86,7 @@ public class FlowNetwork {
     public FlowNetwork(In in) {
         this(in.readInt());
         int E = in.readInt();
-        if (E < 0) throw new IllegalArgumentException("number of edges must be nonnegative");
+        if (E < 0) throw new IllegalArgumentException("number of edges must be non-negative");
         for (int i = 0; i < E; i++) {
             int v = in.readInt();
             int w = in.readInt();
@@ -193,7 +193,7 @@ public class FlowNetwork {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

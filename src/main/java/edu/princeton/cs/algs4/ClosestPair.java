@@ -2,8 +2,8 @@
  *  Compilation:  javac ClosestPair.java
  *  Execution:    java ClosestPair < input.txt
  *  Dependencies: Point2D.java
- *  Data files:   http://algs4.cs.princeton.edu/99hull/rs1423.txt
- *                http://algs4.cs.princeton.edu/99hull/kw1260.txt
+ *  Data files:   https://algs4.cs.princeton.edu/99hull/rs1423.txt
+ *                https://algs4.cs.princeton.edu/99hull/kw1260.txt
  *  
  *  Given n points in the plane, find the closest pair in n log n time.
  *
@@ -28,7 +28,7 @@ import java.util.Arrays;
  *  <p>
  *  See also {@link FarthestPair}.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/99hull">Section 9.9</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -56,10 +56,11 @@ public class ClosestPair {
         int n = points.length;
         if (n <= 1) return;
 
-        // sort by x-coordinate (breaking ties by y-coordinate)
+        // sort by x-coordinate (breaking ties by y-coordinate via stability)
         Point2D[] pointsByX = new Point2D[n];
         for (int i = 0; i < n; i++)
             pointsByX[i] = points[i];
+        Arrays.sort(pointsByX, Point2D.Y_ORDER);
         Arrays.sort(pointsByX, Point2D.X_ORDER);
 
         // check for coincident points
@@ -207,7 +208,7 @@ public class ClosestPair {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

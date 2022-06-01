@@ -3,19 +3,12 @@
  *  Execution:    java LZW - < input.txt   (compress)
  *  Execution:    java LZW + < input.txt   (expand)
  *  Dependencies: BinaryIn.java BinaryOut.java
- *  Data files:   http://algs4.cs.princeton.edu/55compression/abraLZW.txt
- *                http://algs4.cs.princeton.edu/55compression/ababLZW.txt
+ *  Data files:   https://algs4.cs.princeton.edu/55compression/abraLZW.txt
+ *                https://algs4.cs.princeton.edu/55compression/ababLZW.txt
  *
  *  Compress or expand binary input from standard input using LZW.
  *
- *  WARNING: STARTING WITH ORACLE JAVA 6, UPDATE 7 the SUBSTRING
- *  METHOD TAKES TIME AND SPACE LINEAR IN THE SIZE OF THE EXTRACTED
- *  SUBSTRING (INSTEAD OF CONSTANT SPACE AND TIME AS IN EARLIER
- *  IMPLEMENTATIONS).
- *
- *  See <a href = "http://java-performance.info/changes-to-string-java-1-7-0_06/">this article</a>
- *  for more details.
- *
+
  ******************************************************************************/
 
 package edu.princeton.cs.algs4;
@@ -25,8 +18,15 @@ package edu.princeton.cs.algs4;
  *  and expanding a binary input using LZW compression over the 8-bit extended
  *  ASCII alphabet with 12-bit codewords.
  *  <p>
+ *  WARNING: Starting with Oracle Java 7u6, the substring method takes time and
+ *  space linear in the length of the extracted substring (instead of constant
+ *  time an space as in earlier versions). As a result, compression takes
+ *  quadratic time. TODO: fix.
+ *  See <a href = "http://java-performance.info/changes-to-string-java-1-7-0_06/">this article</a>
+ *  for more details.
+ *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/55compress">Section 5.5</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/55compression">Section 5.5</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick  
@@ -48,8 +48,11 @@ public class LZW {
     public static void compress() { 
         String input = BinaryStdIn.readString();
         TST<Integer> st = new TST<Integer>();
+
+        // since TST is not balanced, it would be better to insert in a different order
         for (int i = 0; i < R; i++)
             st.put("" + (char) i, i);
+
         int code = R+1;  // R is codeword for EOF
 
         while (input.length() > 0) {
@@ -109,7 +112,7 @@ public class LZW {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -18,7 +18,7 @@ package edu.princeton.cs.algs4;
  *  changing the amount of flow on the edge and determining the residual
  *  capacity of the edge.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -165,7 +165,7 @@ public class FlowEdge {
      * @throws IllegalArgumentException if {@code delta} is {@code NaN}
      */
     public void addResidualFlowTo(int vertex, double delta) {
-        if (!(delta >= 0.0)) throw new IllegalArgumentException("Delta must be nonnegative");
+        if (!(delta >= 0.0)) throw new IllegalArgumentException("Delta must be non-negative");
 
         if      (vertex == v) flow -= delta;           // backward edge
         else if (vertex == w) flow += delta;           // forward edge
@@ -204,7 +204,7 @@ public class FlowEdge {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,8 +2,8 @@
  *  Compilation:  javac Quick.java
  *  Execution:    java Quick < input.txt
  *  Dependencies: StdOut.java StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/23quicksort/tiny.txt
- *                http://algs4.cs.princeton.edu/23quicksort/words3.txt
+ *  Data files:   https://algs4.cs.princeton.edu/23quicksort/tiny.txt
+ *                https://algs4.cs.princeton.edu/23quicksort/words3.txt
  *
  *  Sorts a sequence of strings from standard input using quicksort.
  *   
@@ -22,7 +22,7 @@
  *
  *  Remark: For a type-safe version that uses static generics, see
  *
- *    http://algs4.cs.princeton.edu/23quicksort/QuickPedantic.java
+ *    https://algs4.cs.princeton.edu/23quicksort/QuickPedantic.java
  *
  ******************************************************************************/
 
@@ -32,8 +32,9 @@ package edu.princeton.cs.algs4;
  *  The {@code Quick} class provides static methods for sorting an
  *  array and selecting the ith smallest element in an array using quicksort.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/23quicksort">Section 2.3</a>   
+ *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
@@ -71,12 +72,14 @@ public class Quick {
         while (true) { 
 
             // find item on lo to swap
-            while (less(a[++i], v))
+            while (less(a[++i], v)) {
                 if (i == hi) break;
+            }
 
             // find item on hi to swap
-            while (less(v, a[--j]))
+            while (less(v, a[--j])) {
                 if (j == lo) break;      // redundant since a[lo] acts as sentinel
+            }
 
             // check if pointers cross
             if (i >= j) break;
@@ -124,6 +127,7 @@ public class Quick {
     
     // is v < w ?
     private static boolean less(Comparable v, Comparable w) {
+        if (v == w) return false;   // optimization when reference equals
         return v.compareTo(w) < 0;
     }
         
@@ -184,7 +188,7 @@ public class Quick {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,7 +2,7 @@
  *  Compilation:  javac BinarySearchST.java
  *  Execution:    java BinarySearchST
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/31elementary/tinyST.txt  
+ *  Data files:   https://algs4.cs.princeton.edu/31elementary/tinyST.txt  
  *  
  *  Symbol table implementation with binary search in an ordered array.
  *
@@ -43,21 +43,26 @@ import java.util.NoSuchElementException;
  *  value associated with a key to {@code null} is equivalent to deleting the key
  *  from the symbol table.
  *  <p>
- *  This implementation uses a sorted array. It requires that
+ *  It requires that
  *  the key type implements the {@code Comparable} interface and calls the
  *  {@code compareTo()} and method to compare two keys. It does not call either
  *  {@code equals()} or {@code hashCode()}.
- *  The <em>put</em> and <em>remove</em> operations each take linear time in
- *  the worst case; the <em>contains</em>, <em>ceiling</em>, <em>floor</em>,
- *  and <em>rank</em> operations take logarithmic time; the <em>size</em>,
- *  <em>is-empty</em>, <em>minimum</em>, <em>maximum</em>, and <em>select</em>
- *  operations take constant time. Construction takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For other implementations, see {@link ST}, {@link BST},
- *  {@link SequentialSearchST}, {@link RedBlackBST},
+ *  This implementation uses a <em>sorted array</em>.
+ *  The <em>put</em> and <em>remove</em> operations take &Theta;(<em>n</em>)
+ *  time in the worst case.
+ *  The <em>contains</em>, <em>ceiling</em>, <em>floor</em>,
+ *  and <em>rank</em> operations take &Theta;(log <em>n</em>) time in the worst
+ *  case.
+ *  The <em>size</em>, <em>is-empty</em>, <em>minimum</em>, <em>maximum</em>,
+ *  and <em>select</em> operations take &Theta;(1) time.
+ *  Construction takes &Theta;(1) time.
+ *  <p>
+ *  For alternative implementations of the symbol table API,
+ *  see {@link ST}, {@link BST}, {@link SequentialSearchST}, {@link RedBlackBST},
  *  {@link SeparateChainingHashST}, and {@link LinearProbingHashST},
+ *  For additional documentation,
+ *  see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  */
 public class BinarySearchST<Key extends Comparable<Key>, Value> {
@@ -315,7 +320,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
         if (key == null) throw new IllegalArgumentException("argument to floor() is null"); 
         int i = rank(key);
         if (i < n && key.compareTo(keys[i]) == 0) return keys[i];
-        if (i == 0) return null;
+        if (i == 0) throw new NoSuchElementException("argument to floor() is too small");
         else return keys[i-1];
     }
 
@@ -330,7 +335,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
     public Key ceiling(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to ceiling() is null"); 
         int i = rank(key);
-        if (i == n) return null; 
+        if (i == n) throw new NoSuchElementException("argument to ceiling() is too large");
         else return keys[i];
     }
 
@@ -430,7 +435,7 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

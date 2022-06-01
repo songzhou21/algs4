@@ -32,6 +32,8 @@ import java.util.NoSuchElementException;
  *  The delete, increase-key, delete-the-minimum, change-key take amortized logarithmic time.
  *  Construction takes time proportional to the specified capacity
  *
+ *   WARNING: THIS VERSION HAS AT LEAST ONE BUG.
+ *
  *  @author Tristan Claverie
  */
 public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
@@ -469,7 +471,7 @@ public class IndexFibonacciMinPQ<Key> implements Iterable<Integer> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

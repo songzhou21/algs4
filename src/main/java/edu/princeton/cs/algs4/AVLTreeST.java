@@ -2,7 +2,7 @@
  *  Compilation:  javac AVLTreeST.java
  *  Execution:    java AVLTreeST < input.txt
  *  Dependencies: StdIn.java StdOut.java  
- *  Data files:   http://algs4.cs.princeton.edu/33balanced/tinyST.txt  
+ *  Data files:   https://algs4.cs.princeton.edu/33balanced/tinyST.txt  
  *    
  *  A symbol table implemented using an AVL tree.
  *
@@ -811,7 +811,7 @@ public class AVLTreeST<Key extends Comparable<Key>, Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

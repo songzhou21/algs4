@@ -2,7 +2,7 @@
  *  Compilation:  javac MinPQ.java
  *  Execution:    java MinPQ < input.txt
  *  Dependencies: StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/24pq/tinyPQ.txt
+ *  Data files:   https://algs4.cs.princeton.edu/24pq/tinyPQ.txt
  *  
  *  Generic min priority queue implementation with a binary heap.
  *  Can be used with a comparator instead of the natural order.
@@ -30,14 +30,18 @@ import java.util.NoSuchElementException;
  *  testing if the priority queue is empty, and iterating through
  *  the keys.
  *  <p>
- *  This implementation uses a binary heap.
+ *  This implementation uses a <em>binary heap</em>.
  *  The <em>insert</em> and <em>delete-the-minimum</em> operations take
- *  logarithmic amortized time.
- *  The <em>min</em>, <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes time proportional to the specified capacity or the number of
- *  items used to initialize the data structure.
+ *  &Theta;(log <em>n</em>) amortized time, where <em>n</em> is the number
+ *  of elements in the priority queue. This is an amortized bound
+ *  (and not a worst-case bound) because of array resizing operations.
+ *  The <em>min</em>, <em>size</em>, and <em>is-empty</em> operations take
+ *  &Theta;(1) time in the worst case.
+ *  Construction takes time proportional to the specified capacity or the
+ *  number of items used to initialize the data structure.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -136,7 +140,7 @@ public class MinPQ<Key> implements Iterable<Key> {
         return pq[1];
     }
 
-    // helper function to double the size of the heap array
+    // resize the underlying array to have the given capacity
     private void resize(int capacity) {
         assert capacity > n;
         Key[] temp = (Key[]) new Object[capacity];
@@ -172,7 +176,7 @@ public class MinPQ<Key> implements Iterable<Key> {
         Key min = pq[1];
         exch(1, n--);
         sink(1);
-        pq[n+1] = null;     // to avoid loiterig and help with garbage collection
+        pq[n+1] = null;     // to avoid loitering and help with garbage collection
         if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length / 2);
         assert isMinHeap();
         return min;
@@ -185,7 +189,7 @@ public class MinPQ<Key> implements Iterable<Key> {
 
     private void swim(int k) {
         while (k > 1 && greater(k/2, k)) {
-            exch(k, k/2);
+            exch(k/2, k);
             k = k/2;
         }
     }
@@ -218,19 +222,26 @@ public class MinPQ<Key> implements Iterable<Key> {
         pq[j] = swap;
     }
 
-    // is pq[1..N] a min heap?
+    // is pq[1..n] a min heap?
     private boolean isMinHeap() {
-        return isMinHeap(1);
+        for (int i = 1; i <= n; i++) {
+            if (pq[i] == null) return false;
+        }
+        for (int i = n+1; i < pq.length; i++) {
+            if (pq[i] != null) return false;
+        }
+        if (pq[0] != null) return false;
+        return isMinHeapOrdered(1);
     }
 
     // is subtree of pq[1..n] rooted at k a min heap?
-    private boolean isMinHeap(int k) {
+    private boolean isMinHeapOrdered(int k) {
         if (k > n) return true;
         int left = 2*k;
         int right = 2*k + 1;
         if (left  <= n && greater(k, left))  return false;
         if (right <= n && greater(k, right)) return false;
-        return isMinHeap(left) && isMinHeap(right);
+        return isMinHeapOrdered(left) && isMinHeapOrdered(right);
     }
 
 
@@ -286,7 +297,7 @@ public class MinPQ<Key> implements Iterable<Key> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,7 +2,7 @@
  *  Compilation:  javac RedBlackBST.java
  *  Execution:    java RedBlackBST < input.txt
  *  Dependencies: StdIn.java StdOut.java  
- *  Data files:   http://algs4.cs.princeton.edu/33balanced/tinyST.txt  
+ *  Data files:   https://algs4.cs.princeton.edu/33balanced/tinyST.txt  
  *    
  *  A symbol table implemented using a left-leaning red-black BST.
  *  This is the 2-3 version.
@@ -47,21 +47,30 @@ import java.util.NoSuchElementException;
  *  value associated with a key to {@code null} is equivalent to deleting the key
  *  from the symbol table.
  *  <p>
- *  This implementation uses a left-leaning red-black BST. It requires that
+ *  It requires that
  *  the key type implements the {@code Comparable} interface and calls the
  *  {@code compareTo()} and method to compare two keys. It does not call either
  *  {@code equals()} or {@code hashCode()}.
- *  The <em>put</em>, <em>contains</em>, <em>remove</em>, <em>minimum</em>,
- *  <em>maximum</em>, <em>ceiling</em>, and <em>floor</em> operations each take
- *  logarithmic time in the worst case, if the tree becomes unbalanced.
- *  The <em>size</em>, and <em>is-empty</em> operations take constant time.
- *  Construction takes constant time.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/33balanced">Section 3.3</a> of
+ *  This implementation uses a <em>left-leaning red-black BST</em>. 
+ *  The <em>put</em>, <em>get</em>, <em>contains</em>, <em>remove</em>,
+ *  <em>minimum</em>, <em>maximum</em>, <em>ceiling</em>, <em>floor</em>,
+ *  <em>rank</em>, and <em>select</em> operations each take
+ *  &Theta;(log <em>n</em>) time in the worst case, where <em>n</em> is the
+ *  number of key-value pairs in the symbol table.
+ *  The <em>size</em>, and <em>is-empty</em> operations take &Theta;(1) time.
+ *  The <em>keys</em> methods take
+ *  <em>O</em>(log <em>n</em> + <em>m</em>) time, where <em>m</em> is
+ *  the number of keys returned by the iterator.
+ *  Construction takes &Theta;(1) time.
+ *  <p>
+ *  For alternative implementations of the symbol table API, see {@link ST},
+ *  {@link BinarySearchST}, {@link SequentialSearchST}, {@link BST},
+ *  {@link SeparateChainingHashST}, {@link LinearProbingHashST}, and
+ *  {@link AVLTreeST}.
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/33balanced">Section 3.3</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
- *  For other implementations of the same API, see {@link ST}, {@link BinarySearchST},
- *  {@link SequentialSearchST}, {@link BST},
- *  {@link SeparateChainingHashST}, {@link LinearProbingHashST}, and {@link AVLTreeST}.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
@@ -331,12 +340,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // make a left-leaning link lean to the right
     private Node rotateRight(Node h) {
-        // assert (h != null) && isRed(h.left);
+        assert (h != null) && isRed(h.left);
+        // assert (h != null) && isRed(h.left) &&  !isRed(h.right);  // for insertion only
         Node x = h.left;
         h.left = x.right;
         x.right = h;
-        x.color = x.right.color;
-        x.right.color = RED;
+        x.color = h.color;
+        h.color = RED;
         x.size = h.size;
         h.size = size(h.left) + size(h.right) + 1;
         return x;
@@ -344,12 +354,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     // make a right-leaning link lean to the left
     private Node rotateLeft(Node h) {
-        // assert (h != null) && isRed(h.right);
+        assert (h != null) && isRed(h.right);
+        // assert (h != null) && isRed(h.right) && !isRed(h.left);  // for insertion only
         Node x = h.right;
         h.right = x.left;
         x.left = h;
-        x.color = x.left.color;
-        x.left.color = RED;
+        x.color = h.color;
+        h.color = RED;
         x.size = h.size;
         h.size = size(h.left) + size(h.right) + 1;
         return x;
@@ -398,7 +409,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     private Node balance(Node h) {
         // assert (h != null);
 
-        if (isRed(h.right))                      h = rotateLeft(h);
+        if (isRed(h.right) && !isRed(h.left))    h = rotateLeft(h);
         if (isRed(h.left) && isRed(h.left.left)) h = rotateRight(h);
         if (isRed(h.left) && isRed(h.right))     flipColors(h);
 
@@ -433,7 +444,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public Key min() {
-        if (isEmpty()) throw new NoSuchElementException("called min() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
         return min(root).key;
     } 
 
@@ -450,7 +461,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @throws NoSuchElementException if the symbol table is empty
      */
     public Key max() {
-        if (isEmpty()) throw new NoSuchElementException("called max() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
         return max(root).key;
     } 
 
@@ -471,9 +482,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      */
     public Key floor(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to floor() is null");
-        if (isEmpty()) throw new NoSuchElementException("called floor() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
         Node x = floor(root, key);
-        if (x == null) return null;
+        if (x == null) throw new NoSuchElementException("argument to floor() is too small");
         else           return x.key;
     }    
 
@@ -497,9 +508,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      */
     public Key ceiling(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
-        if (isEmpty()) throw new NoSuchElementException("called ceiling() with empty symbol table");
+        if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
         Node x = ceiling(root, key);
-        if (x == null) return null;
+        if (x == null) throw new NoSuchElementException("argument to ceiling() is too small");
         else           return x.key;  
     }
 
@@ -515,29 +526,32 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * Return the kth smallest key in the symbol table.
-     * @param k the order statistic
-     * @return the {@code k}th smallest key in the symbol table
-     * @throws IllegalArgumentException unless {@code k} is between 0 and
-     *     <em>n</em>–1
+     * Return the key in the symbol table of a given {@code rank}.
+     * This key has the property that there are {@code rank} keys in
+     * the symbol table that are smaller. In other words, this key is the
+     * ({@code rank}+1)st smallest key in the symbol table.
+     *
+     * @param  rank the order statistic
+     * @return the key in the symbol table of given {@code rank}
+     * @throws IllegalArgumentException unless {@code rank} is between 0 and
+     *        <em>n</em>–1
      */
-    public Key select(int k) {
-        if (k < 0 || k >= size()) {
-            throw new IllegalArgumentException("called select() with invalid argument: " + k);
+    public Key select(int rank) {
+        if (rank < 0 || rank >= size()) {
+            throw new IllegalArgumentException("argument to select() is invalid: " + rank);
         }
-        Node x = select(root, k);
-        return x.key;
+        return select(root, rank);
     }
 
-    // the key of rank k in the subtree rooted at x
-    private Node select(Node x, int k) {
-        // assert x != null;
-        // assert k >= 0 && k < size(x);
-        int t = size(x.left); 
-        if      (t > k) return select(x.left,  k); 
-        else if (t < k) return select(x.right, k-t-1); 
-        else            return x; 
-    } 
+    // Return key in BST rooted at x of given rank.
+    // Precondition: rank is in legal range.
+    private Key select(Node x, int rank) {
+        if (x == null) return null;
+        int leftSize = size(x.left);
+        if      (leftSize > rank) return select(x.left,  rank);
+        else if (leftSize < rank) return select(x.right, rank - leftSize - 1); 
+        else                      return x.key;
+    }
 
     /**
      * Return the number of keys in the symbol table strictly less than {@code key}.
@@ -564,10 +578,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     ***************************************************************************/
 
     /**
-     * Returns all keys in the symbol table as an {@code Iterable}.
+     * Returns all keys in the symbol table in ascending order as an {@code Iterable}.
      * To iterate over all of the keys in the symbol table named {@code st},
      * use the foreach notation: {@code for (Key key : st.keys())}.
-     * @return all keys in the symbol table as an {@code Iterable}
+     * @return all keys in the symbol table in ascending order
      */
     public Iterable<Key> keys() {
         if (isEmpty()) return new Queue<Key>();
@@ -575,13 +589,13 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * Returns all keys in the symbol table in the given range,
+     * Returns all keys in the symbol table in the given range in ascending order,
      * as an {@code Iterable}.
      *
      * @param  lo minimum endpoint
      * @param  hi maximum endpoint
-     * @return all keys in the sybol table between {@code lo} 
-     *    (inclusive) and {@code hi} (inclusive) as an {@code Iterable}
+     * @return all keys in the symbol table between {@code lo} 
+     *    (inclusive) and {@code hi} (inclusive) in ascending order
      * @throws IllegalArgumentException if either {@code lo} or {@code hi}
      *    is {@code null}
      */
@@ -611,7 +625,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      *
      * @param  lo minimum endpoint
      * @param  hi maximum endpoint
-     * @return the number of keys in the sybol table between {@code lo} 
+     * @return the number of keys in the symbol table between {@code lo} 
      *    (inclusive) and {@code hi} (inclusive)
      * @throws IllegalArgumentException if either {@code lo} or {@code hi}
      *    is {@code null}
@@ -712,6 +726,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
             String key = StdIn.readString();
             st.put(key, i);
         }
+        StdOut.println();
         for (String s : st.keys())
             StdOut.println(s + " " + st.get(s));
         StdOut.println();
@@ -719,7 +734,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

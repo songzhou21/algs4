@@ -2,9 +2,9 @@
  *  Compilation:  javac Cycle.java
  *  Execution:    java  Cycle filename.txt
  *  Dependencies: Graph.java Stack.java In.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/41graph/tinyG.txt
- *                http://algs4.cs.princeton.edu/41graph/mediumG.txt
- *                http://algs4.cs.princeton.edu/41graph/largeG.txt  
+ *  Data files:   https://algs4.cs.princeton.edu/41graph/tinyG.txt
+ *                https://algs4.cs.princeton.edu/41graph/mediumG.txt
+ *                https://algs4.cs.princeton.edu/41graph/largeG.txt  
  *
  *  Identifies a cycle.
  *  Runs in O(E + V) time.
@@ -24,19 +24,23 @@ package edu.princeton.cs.algs4;
 
 /**
  *  The {@code Cycle} class represents a data type for 
- *  determining whether an undirected graph has a cycle.
+ *  determining whether an undirected graph has a simple cycle.
  *  The <em>hasCycle</em> operation determines whether the graph has
  *  a cycle and, if so, the <em>cycle</em> operation returns one.
  *  <p>
  *  This implementation uses depth-first search.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>
- *  (in the worst case),
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the <em>hasCycle</em> operation takes constant time;
- *  the <em>cycle</em> operation takes time proportional
- *  to the length of the cycle.
+ *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ *  worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  (The depth-first search part takes only <em>O</em>(<em>V</em>) time;
+ *  however, checking for self-loops and parallel edges takes
+ *  &Theta;(<em>V</em> + <em>E</em>) time in the worst case.)
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the graph).
+ *  
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/41graph">Section 4.1</a>   
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -54,8 +58,12 @@ public class Cycle {
      * @param G the undirected graph
      */
     public Cycle(Graph G) {
-        if (hasSelfLoop(G)) return;
+        // need special case to identify parallel edge as a cycle
         if (hasParallelEdges(G)) return;
+
+        // don't need special case to identify self-loop as a cycle
+        // if (hasSelfLoop(G)) return;
+
         marked = new boolean[G.V()];
         edgeTo = new int[G.V()];
         for (int v = 0; v < G.V(); v++)
@@ -174,7 +182,7 @@ public class Cycle {
 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

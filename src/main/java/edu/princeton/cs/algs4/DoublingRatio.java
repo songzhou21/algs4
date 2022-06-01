@@ -12,7 +12,6 @@
  *     4000     4.5   8.0
  *     8000    35.7   8.0
  *     4000     3.9   6.6
-
  *  ...
  *
  ******************************************************************************/
@@ -23,7 +22,7 @@ package edu.princeton.cs.algs4;
  *  The {@code DoublingRatio} class provides a client for measuring
  *  the running time of a method using a doubling ratio test.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/14analysis">Section 1.4</a>
  *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -71,7 +70,7 @@ public class DoublingRatio {
 
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

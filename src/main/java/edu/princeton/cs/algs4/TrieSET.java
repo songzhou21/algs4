@@ -2,7 +2,7 @@
  *  Compilation:  javac TrieSET.java
  *  Execution:    java TrieSET < words.txt
  *  Dependencies: StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/52trie/shellsST.txt
+ *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
  *
  *  An set for extended ASCII strings, implemented  using a 256-way trie.
  *
@@ -30,7 +30,7 @@ import java.util.Iterator;
  *  of the key (in the worst case). Construction takes constant time.
  *  <p>
  *  For additional documentation, see
- *  <a href="http://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
+ *  <a href="https://algs4.cs.princeton.edu/52trie">Section 5.2</a> of
  *  <i>Algorithms in Java, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -149,7 +149,7 @@ public class TrieSET implements Iterable<String> {
 
     /**
      * Returns all of the keys in the set that match {@code pattern},
-     * where . symbol is treated as a wildcard character.
+     * where the character '.' is interpreted as a wildcard character.
      * @param pattern the pattern
      * @return all of the keys in the set that match {@code pattern},
      *     as an iterable, where . is treated as a wildcard character.
@@ -286,7 +286,7 @@ public class TrieSET implements Iterable<String> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

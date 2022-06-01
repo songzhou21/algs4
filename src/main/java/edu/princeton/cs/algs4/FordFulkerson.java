@@ -2,7 +2,7 @@
  *  Compilation:  javac FordFulkerson.java
  *  Execution:    java FordFulkerson V E
  *  Dependencies: FlowNetwork.java FlowEdge.java Queue.java
- *  Data files:   http://algs4.cs.princeton.edu/65maxflow/tinyFN.txt
+ *  Data files:   https://algs4.cs.princeton.edu/65maxflow/tinyFN.txt
  *
  *  Ford-Fulkerson algorithm for computing a max flow and 
  *  a min cut using shortest augmenting path rule.
@@ -18,21 +18,20 @@ package edu.princeton.cs.algs4;
  *  <p>
  *  This implementation uses the <em>Ford-Fulkerson</em> algorithm with
  *  the <em>shortest augmenting path</em> heuristic.
- *  The constructor takes time proportional to <em>E V</em> (<em>E</em> + <em>V</em>)
- *  in the worst case and extra space (not including the network)
- *  proportional to <em>V</em>, where <em>V</em> is the number of vertices
- *  and <em>E</em> is the number of edges. In practice, the algorithm will
- *  run much faster.
- *  Afterwards, the {@code inCut()} and {@code value()} methods take
- *  constant time.
+ *  The constructor takes <em>O</em>(<em>E V</em> (<em>E</em> + <em>V</em>))
+ *  time, where <em>V</em> is the number of vertices and <em>E</em> is
+ *  the number of edges. In practice, the algorithm will run much faster.
+ *  The {@code inCut()} and {@code value()} methods take &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the network).
  *  <p>
- *  If the capacities and initial flow values are all integers, then this
- *  implementation guarantees to compute an integer-valued maximum flow.
- *  If the capacities and floating-point numbers, then floating-point
- *  roundoff error can accumulate.
+ *  This correctly computes the maxflow and mincut if all arithmetic
+ *  performed is without floating-point rounding error or arithmetic
+ *  overflow. This is guaranteed to be the case if all edge capacities
+ *  and initial flow values are integers and the value of the maxflow
+ *  does not exceeds 2<sup>52</sup>.
  *  <p>
- *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/64maxflow">Section 6.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -271,7 +270,7 @@ public class FordFulkerson {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

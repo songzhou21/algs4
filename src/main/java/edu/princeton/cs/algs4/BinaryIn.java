@@ -5,7 +5,7 @@
  *  
  *  This library is for reading binary data from an input stream.
  *
- *  % java BinaryIn http://introcs.cs.princeton.edu/cover.jpg output.jpg
+ *  % java BinaryIn https://introcs.cs.princeton.edu/java/cover.png output.png
  *
  ******************************************************************************/
 
@@ -213,7 +213,8 @@ public final class BinaryIn {
 
 
    /**
-     * Reads the next r bits from this binary input stream and return as an r-bit character.
+     * Reads the next <em>r</em> bits from this binary input stream and return
+     * as an <em>r</em>-bit character.
      *
      * @param  r number of bits to read
      * @return the next {@code r} bits of data from this binary input streamt as a {@code char}
@@ -288,7 +289,8 @@ public final class BinaryIn {
     }
 
    /**
-     * Reads the next r bits from this binary input stream return as an r-bit int.
+     * Reads the next <em>r</em> bits from this binary input stream return
+     * as an <em>r</em>-bit int.
      *
      * @param  r number of bits to read
      * @return the next {@code r} bits of data from this binary input stream as a {@code int}
@@ -379,7 +381,7 @@ public final class BinaryIn {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

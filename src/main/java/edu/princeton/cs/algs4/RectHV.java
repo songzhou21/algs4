@@ -15,7 +15,7 @@ package edu.princeton.cs.algs4;
  *  The rectangle is <em>closed</em>—it includes the points on the boundary.
  *  <p>
  *  For additional documentation, 
- *  see <a href="http://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
+ *  see <a href="https://algs4.cs.princeton.edu/12oop">Section 1.2</a> of 
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -31,26 +31,31 @@ public final class RectHV {
      * x [<em>ymin</em>, <em>ymax</em>].
      *
      * @param  xmin the <em>x</em>-coordinate of the lower-left endpoint
-     * @param  xmax the <em>x</em>-coordinate of the upper-right endpoint
      * @param  ymin the <em>y</em>-coordinate of the lower-left endpoint
+     * @param  xmax the <em>x</em>-coordinate of the upper-right endpoint
      * @param  ymax the <em>y</em>-coordinate of the upper-right endpoint
      * @throws IllegalArgumentException if any of {@code xmin},
-     *         {@code xmax}, {@code ymin}, or {@code ymax}
+     *         {@code ymin}, {@code xmax}, or {@code ymax}
      *         is {@code Double.NaN}.
      * @throws IllegalArgumentException if {@code xmax < xmin} or {@code ymax < ymin}.
      */
     public RectHV(double xmin, double ymin, double xmax, double ymax) {
-        if (Double.isNaN(xmin) || Double.isNaN(xmax))
-            throw new IllegalArgumentException("x-coordinate cannot be NaN");
-        if (Double.isNaN(ymin) || Double.isNaN(ymax))
-            throw new IllegalArgumentException("y-coordinates cannot be NaN");
-        if (xmax < xmin || ymax < ymin) {
-            throw new IllegalArgumentException("Invalid rectangle");
-        }
         this.xmin = xmin;
         this.ymin = ymin;
         this.xmax = xmax;
         this.ymax = ymax;
+        if (Double.isNaN(xmin) || Double.isNaN(xmax)) {
+            throw new IllegalArgumentException("x-coordinate is NaN: " + toString());
+        }
+        if (Double.isNaN(ymin) || Double.isNaN(ymax)) {
+            throw new IllegalArgumentException("y-coordinate is NaN: " + toString());
+        }
+        if (xmax < xmin) {
+            throw new IllegalArgumentException("xmax < xmin: " + toString());
+        }
+        if (ymax < ymin) {
+            throw new IllegalArgumentException("ymax < ymin: " + toString());
+        }
     }
 
     /**
@@ -108,14 +113,14 @@ public final class RectHV {
     }
 
     /**
-     * Returns true if the two rectangles intersect. This includes
-     * <em>improper intersections</em> (at points on the boundary
-     * of each rectangle) and <em>nested intersctions</em>
-     * (when one rectangle is contained inside the other)
+     * Returns true if the two rectangles intersect, an false otherwise.
+     * This includes <em>improper intersections</em> (at points on the
+     * boundary of each rectangle) and <em>nested intersctions</em>
+     * (when one rectangle is contained inside the other).
      *
      * @param  that the other rectangle
      * @return {@code true} if this rectangle intersect the argument
-               rectangle at one or more points
+               rectangle at one or more points; false otherwise
      */
     public boolean intersects(RectHV that) {
         return this.xmax >= that.xmin && this.ymax >= that.ymin
@@ -123,7 +128,7 @@ public final class RectHV {
     }
 
     /**
-     * Returns true if this rectangle contain the point.
+     * Returns true if this rectangle contain the point, and false otherwise.
      * @param  p the point
      * @return {@code true} if this rectangle contain the point {@code p},
                possibly at the boundary; {@code false} otherwise
@@ -219,7 +224,7 @@ public final class RectHV {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

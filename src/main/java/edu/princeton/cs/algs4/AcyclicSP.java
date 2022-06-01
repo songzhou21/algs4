@@ -2,7 +2,7 @@
  *  Compilation:  javac AcyclicSP.java
  *  Execution:    java AcyclicSP V E
  *  Dependencies: EdgeWeightedDigraph.java DirectedEdge.java Topological.java
- *  Data files:   http://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt
+ *  Data files:   https://algs4.cs.princeton.edu/44sp/tinyEWDAG.txt
  *
  *  Computes shortest paths in an edge-weighted acyclic digraph.
  *
@@ -26,14 +26,23 @@ package edu.princeton.cs.algs4;
  *  graphs (DAGs). The edge weights can be positive, negative, or zero.
  *  <p>
  *  This implementation uses a topological-sort based algorithm.
- *  The constructor takes time proportional to <em>V</em> + <em>E</em>,
- *  where <em>V</em> is the number of vertices and <em>E</em> is the number of edges.
- *  Afterwards, the {@code distTo()} and {@code hasPathTo()} methods take
- *  constant time and the {@code pathTo()} method takes time proportional to the
- *  number of edges in the shortest path returned.
+ *  The constructor takes &Theta;(<em>V</em> + <em>E</em>) time in the
+ *  worst case, where <em>V</em> is the number of vertices and
+ *  <em>E</em> is the number of edges.
+ *  Each instance method takes &Theta;(1) time.
+ *  It uses &Theta;(<em>V</em>) extra space (not including the
+ *  edge-weighted digraph).
+ *  <p>
+ *  This correctly computes shortest paths if all arithmetic performed is
+ *  without floating-point rounding error or arithmetic overflow.
+ *  This is the case if all edge weights are integers and if none of the
+ *  intermediate results exceeds 2<sup>52</sup>. Since all intermediate
+ *  results are sums of edge weights, they are bounded by <em>V C</em>,
+ *  where <em>V</em> is the number of vertices and <em>C</em> is the maximum
+ *  absolute value of any edge weight.
  *  <p>
  *  For additional documentation,    
- *  see <a href="http://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
+ *  see <a href="https://algs4.cs.princeton.edu/44sp">Section 4.4</a> of    
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne. 
  *
  *  @author Robert Sedgewick
@@ -62,7 +71,7 @@ public class AcyclicSP {
             distTo[v] = Double.POSITIVE_INFINITY;
         distTo[s] = 0.0;
 
-        // visit vertices in toplogical order
+        // visit vertices in topological order
         Topological topological = new Topological(G);
         if (!topological.hasOrder())
             throw new IllegalArgumentException("Digraph is not acyclic.");
@@ -157,7 +166,7 @@ public class AcyclicSP {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

@@ -2,8 +2,8 @@
  *  Compilation: javac MSD.java
  *  Execution:   java MSD < input.txt
  *  Dependencies: StdIn.java StdOut.java 
- *  Data files:   http://algs4.cs.princeton.edu/51radix/words3.txt
- *                http://algs4.cs.princeton.edu/51radix/shells.txt
+ *  Data files:   https://algs4.cs.princeton.edu/51radix/words3.txt
+ *                https://algs4.cs.princeton.edu/51radix/shells.txt
  *
  *  Sort an array of strings or integers using MSD radix sort.
  *
@@ -32,7 +32,7 @@ package edu.princeton.cs.algs4;
  *  array of extended ASCII strings or integers using MSD radix sort.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
+ *  see <a href="https://algs4.cs.princeton.edu/51radix">Section 5.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -144,7 +144,7 @@ public class MSD {
 
         // cutoff to insertion sort for small subarrays
         if (hi <= lo + CUTOFF) {
-            insertion(a, lo, hi, d);
+            insertion(a, lo, hi);
             return;
         }
 
@@ -161,17 +161,17 @@ public class MSD {
         for (int r = 0; r < R; r++)
             count[r+1] += count[r];
 
-/************* BUGGGY CODE.
         // for most significant byte, 0x80-0xFF comes before 0x00-0x7F
         if (d == 0) {
             int shift1 = count[R] - count[R/2];
             int shift2 = count[R/2];
+            count[R] = shift1 + count[1];   // to simplify recursive calls later
             for (int r = 0; r < R/2; r++)
                 count[r] += shift1;
             for (int r = R/2; r < R; r++)
                 count[r] -= shift2;
         }
-************************************/
+
         // distribute
         for (int i = lo; i <= hi; i++) {
             int c = (a[i] >> shift) & mask;
@@ -183,18 +183,25 @@ public class MSD {
             a[i] = aux[i - lo];
 
         // no more bits
-        if (d == 4) return;
+        if (d == 3) return;
+
+        // special case for most significant byte
+        if (d == 0 && count[R/2] > 0)
+            sort(a, lo, lo + count[R/2] - 1, d+1, aux);
+
+        // special case for other bytes
+        if (d != 0 && count[0] > 0)
+            sort(a, lo, lo + count[0] - 1, d+1, aux);
 
         // recursively sort for each character
-        if (count[0] > 0)
-            sort(a, lo, lo + count[0] - 1, d+1, aux);
+        // (could skip r = R/2 for d = 0 and skip r = R for d > 0)
         for (int r = 0; r < R; r++)
             if (count[r+1] > count[r])
                 sort(a, lo + count[r], lo + count[r+1] - 1, d+1, aux);
     }
 
-    // TODO: insertion sort a[lo..hi], starting at dth character
-    private static void insertion(int[] a, int lo, int hi, int d) {
+    // insertion sort a[lo..hi]
+    private static void insertion(int[] a, int lo, int hi) {
         for (int i = lo; i <= hi; i++)
             for (int j = i; j > lo && a[j] < a[j-1]; j--)
                 exch(a, j, j-1);
@@ -225,7 +232,7 @@ public class MSD {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

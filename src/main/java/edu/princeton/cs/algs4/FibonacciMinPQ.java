@@ -27,6 +27,8 @@ import java.util.Comparator;
  *  The delete-the-minimum operation takes amortized logarithmic time.
  *  The insert, min-key, is-empty, size, union and constructor take constant time.
  *
+ *   WARNING: THIS VERSION HAS AT LEAST ONE BUG.
+ *
  *  @author Tristan Claverie
  */
 public class FibonacciMinPQ<Key> implements Iterable<Key> {
@@ -328,7 +330,7 @@ public class FibonacciMinPQ<Key> implements Iterable<Key> {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

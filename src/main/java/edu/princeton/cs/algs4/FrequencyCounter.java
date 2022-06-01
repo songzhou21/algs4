@@ -2,11 +2,11 @@
  *  Compilation:  javac FrequencyCounter.java
  *  Execution:    java FrequencyCounter L < input.txt
  *  Dependencies: ST.java StdIn.java StdOut.java
- *  Data files:   http://algs4.cs.princeton.edu/31elementary/tnyTale.txt
- *                http://algs4.cs.princeton.edu/31elementary/tale.txt
- *                http://algs4.cs.princeton.edu/31elementary/leipzig100K.txt
- *                http://algs4.cs.princeton.edu/31elementary/leipzig300K.txt
- *                http://algs4.cs.princeton.edu/31elementary/leipzig1M.txt
+ *  Data files:   https://algs4.cs.princeton.edu/31elementary/tinyTale.txt
+ *                https://algs4.cs.princeton.edu/31elementary/tale.txt
+ *                https://algs4.cs.princeton.edu/31elementary/leipzig100K.txt
+ *                https://algs4.cs.princeton.edu/31elementary/leipzig300K.txt
+ *                https://algs4.cs.princeton.edu/31elementary/leipzig1M.txt
  *
  *  Read in a list of words from standard input and print out
  *  the most frequently occurring word that has length greater than
@@ -32,7 +32,7 @@ package edu.princeton.cs.algs4;
  *  a given length) that occurs most frequently. It is useful as
  *  a test client for various symbol table implementations.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
+ *  For additional documentation, see <a href="https://algs4.cs.princeton.edu/31elementary">Section 3.1</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -86,7 +86,7 @@ public class FrequencyCounter {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

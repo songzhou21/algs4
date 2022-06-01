@@ -2,8 +2,8 @@
  *  Compilation:  javac Selection.java
  *  Execution:    java  Selection < input.txt
  *  Dependencies: StdOut.java StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/21elementary/tiny.txt
- *                http://algs4.cs.princeton.edu/21elementary/words3.txt
+ *  Data files:   https://algs4.cs.princeton.edu/21elementary/tiny.txt
+ *                https://algs4.cs.princeton.edu/21elementary/words3.txt
  *   
  *  Sorts a sequence of strings from standard input using selection sort.
  *   
@@ -27,10 +27,17 @@ import java.util.Comparator;
 
 /**
  *  The {@code Selection} class provides static methods for sorting an
- *  array using selection sort.
+ *  array using <em>selection sort</em>.
+ *  This implementation makes ~ &frac12; <em>n</em><sup>2</sup> compares to sort
+ *  any array of length <em>n</em>, so it is not suitable for sorting large arrays.
+ *  It performs exactly <em>n</em> exchanges.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *  This sorting algorithm is not stable. It uses &Theta;(1) extra memory
+ *  (not including the input array).
+ *  <p>
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/21elementary">Section 2.1</a>
+ *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
@@ -150,7 +157,7 @@ public class Selection {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

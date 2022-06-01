@@ -36,9 +36,9 @@
  *  Remark
  *  ------
  *    - Relies on randomness of nextDouble() method in java.util.Random
- *      to generate pseudorandom numbers in [0, 1).
+ *      to generate pseudo-random numbers in [0, 1).
  *
- *    - This library allows you to set and get the pseudorandom number seed.
+ *    - This library allows you to set and get the pseudo-random number seed.
  *
  *    - See http://www.honeylocust.com/RngPack/ for an industrial
  *      strength random number generator in Java.
@@ -52,12 +52,24 @@ import java.util.Random;
 /**
  *  The {@code StdRandom} class provides static methods for generating
  *  random number from various discrete and continuous distributions, 
- *  including Bernoulli, uniform, Gaussian, exponential, pareto,
+ *  including uniform, Bernoulli, geometric, Gaussian, exponential, Pareto,
  *  Poisson, and Cauchy. It also provides method for shuffling an
- *  array or subarray.
+ *  array or subarray and generating random permutations.
+ *  <p>
+ *  By convention, all intervals are half open. For example,
+ *  <code>uniform(-1.0, 1.0)</code> returns a random number between
+ *  <code>-1.0</code> (inclusive) and <code>1.0</code> (exclusive).
+ *  Similarly, <code>shuffle(a, lo, hi)</code> shuffles the <code>hi - lo</code>
+ *  elements in the array <code>a[]</code>, starting at index <code>lo</code>
+ *  (inclusive) and ending at index <code>hi</code> (exclusive).
+ *  <p>
+ *  The methods all take constant expected time, except those that involve arrays.
+ *  The <em>shuffle</em> method takes time linear in the subarray to be shuffled;
+ *  the <em>discrete</em> methods take time linear in the length of the argument
+ *  array.
  *  <p>
  *  For additional documentation,
- *  see <a href="http://introcs.cs.princeton.edu/22library">Section 2.2</a> of
+ *  see <a href="https://introcs.cs.princeton.edu/22library">Section 2.2</a> of
  *  <i>Computer Science: An Interdisciplinary Approach</i>
  *  by Robert Sedgewick and Kevin Wayne.
  *
@@ -80,7 +92,7 @@ public final class StdRandom {
     private StdRandom() { }
 
     /**
-     * Sets the seed of the pseudorandom number generator.
+     * Sets the seed of the pseudo-random number generator.
      * This method enables you to produce the same sequence of "random"
      * number for each execution of the program.
      * Ordinarily, you should call this method at most once per program.
@@ -93,7 +105,7 @@ public final class StdRandom {
     }
 
     /**
-     * Returns the seed of the pseudorandom number generator.
+     * Returns the seed of the pseudo-random number generator.
      *
      * @return the seed
      */
@@ -126,7 +138,7 @@ public final class StdRandom {
     /**
      * Returns a random long integer uniformly in [0, n).
      * 
-     * @param n number of possible long integers
+     * @param n number of possible {@code long} integers
      * @return a random long integer uniformly between 0 (inclusive) and {@code n} (exclusive)
      * @throws IllegalArgumentException if {@code n <= 0}
      */
@@ -203,7 +215,7 @@ public final class StdRandom {
      *
      * @param  p the probability of returning {@code true}
      * @return {@code true} with probability {@code p} and
-     *         {@code false} with probability {@code p}
+     *         {@code false} with probability {@code 1 - p}
      * @throws IllegalArgumentException unless {@code 0} &le; {@code p} &le; {@code 1.0}
      */
     public static boolean bernoulli(double p) {
@@ -259,6 +271,8 @@ public final class StdRandom {
     /**
      * Returns a random integer from a geometric distribution with success
      * probability <em>p</em>.
+     * The integer represents the number of independent trials
+     * before the first success.
      * 
      * @param  p the parameter of the geometric distribution
      * @return a random integer from a geometric distribution with success
@@ -267,8 +281,11 @@ public final class StdRandom {
      * @throws IllegalArgumentException unless {@code p >= 0.0} and {@code p <= 1.0}
      */
     public static int geometric(double p) {
-        if (!(p >= 0.0 && p <= 1.0)) {
-            throw new IllegalArgumentException("probability p must be between 0.0 and 1.0: " + p);
+        if (!(p >= 0)) {
+            throw new IllegalArgumentException("probability p must be greater than 0: " + p);
+        }
+        if (!(p <= 1.0)) {
+            throw new IllegalArgumentException("probability p must not be larger than 1: " + p);
         }
         // using algorithm given by Knuth
         return (int) Math.ceil(Math.log(uniform()) / Math.log(1.0 - p));
@@ -342,12 +359,12 @@ public final class StdRandom {
      * @throws IllegalArgumentException unless {@code probabilities[i] >= 0.0} for each index {@code i}
      */
     public static int discrete(double[] probabilities) {
-        if (probabilities == null) throw new IllegalArgumentException("argument array is null");
-        double EPSILON = 1E-14;
+        if (probabilities == null) throw new IllegalArgumentException("argument array must not be null");
+        double EPSILON = 1.0E-14;
         double sum = 0.0;
         for (int i = 0; i < probabilities.length; i++) {
             if (!(probabilities[i] >= 0.0))
-                throw new IllegalArgumentException("array entry " + i + " must be nonnegative: " + probabilities[i]);
+                throw new IllegalArgumentException("array entry " + i + " must be non-negative: " + probabilities[i]);
             sum += probabilities[i];
         }
         if (sum > 1.0 + EPSILON || sum < 1.0 - EPSILON)
@@ -377,11 +394,11 @@ public final class StdRandom {
      * @throws IllegalArgumentException if sum of frequencies exceeds {@code Integer.MAX_VALUE} (2<sup>31</sup> - 1)
      */
     public static int discrete(int[] frequencies) {
-        if (frequencies == null) throw new IllegalArgumentException("argument array is null");
+        if (frequencies == null) throw new IllegalArgumentException("argument array must not be null");
         long sum = 0;
         for (int i = 0; i < frequencies.length; i++) {
             if (frequencies[i] < 0)
-                throw new IllegalArgumentException("array entry " + i + " must be nonnegative: " + frequencies[i]);
+                throw new IllegalArgumentException("array entry " + i + " must be non-negative: " + frequencies[i]);
             sum += frequencies[i];
         }
         if (sum == 0)
@@ -550,7 +567,7 @@ public final class StdRandom {
     }
 
     /**
-     * Returns a uniformly random permutation of <em>n</em> elements
+     * Returns a uniformly random permutation of <em>n</em> elements.
      *
      * @param  n number of elements
      * @throws IllegalArgumentException if {@code n} is negative
@@ -558,7 +575,7 @@ public final class StdRandom {
      *         of {@code 0}, {@code 1}, ..., {@code n-1}
      */
     public static int[] permutation(int n) {
-        if (n < 0) throw new IllegalArgumentException("argument is negative");
+        if (n < 0) throw new IllegalArgumentException("n must be non-negative: " + n);
         int[] perm = new int[n];
         for (int i = 0; i < n; i++)
             perm[i] = i;
@@ -567,7 +584,7 @@ public final class StdRandom {
     }
 
     /**
-     * Returns a uniformly random permutation of <em>k</em> of <em>n</em> elements
+     * Returns a uniformly random permutation of <em>k</em> of <em>n</em> elements.
      *
      * @param  n number of elements
      * @param  k number of elements to select
@@ -577,8 +594,8 @@ public final class StdRandom {
      *         of {@code k} of the elements from {@code 0}, {@code 1}, ..., {@code n-1}
      */
     public static int[] permutation(int n, int k) {
-        if (n < 0) throw new IllegalArgumentException("argument is negative");
-        if (k < 0 || k > n) throw new IllegalArgumentException("k must be between 0 and n");
+        if (n < 0) throw new IllegalArgumentException("n must be non-negative: " + n);
+        if (k < 0 || k > n) throw new IllegalArgumentException("k must be between 0 and n: " + k);
         int[] perm = new int[k];
         for (int i = 0; i < k; i++) {
             int r = uniform(i+1);    // between 0 and i
@@ -596,7 +613,7 @@ public final class StdRandom {
     // (x can be of type Object[], double[], int[], ...)
     private static void validateNotNull(Object x) {
         if (x == null) {
-            throw new IllegalArgumentException("argument is null");
+            throw new IllegalArgumentException("argument must not be null");
         }
     }
 
@@ -608,7 +625,7 @@ public final class StdRandom {
     }
 
     /**
-     * Unit test.
+     * Unit tests the methods in this class.
      *
      * @param args the command-line arguments
      */
@@ -638,7 +655,7 @@ public final class StdRandom {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

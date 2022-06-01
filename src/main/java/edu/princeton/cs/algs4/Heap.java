@@ -2,8 +2,8 @@
  *  Compilation:  javac Heap.java
  *  Execution:    java Heap < input.txt
  *  Dependencies: StdOut.java StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/24pq/tiny.txt
- *                http://algs4.cs.princeton.edu/24pq/words3.txt
+ *  Data files:   https://algs4.cs.princeton.edu/24pq/tiny.txt
+ *                https://algs4.cs.princeton.edu/24pq/words3.txt
  *  
  *  Sorts a sequence of strings from standard input using heapsort.
  *
@@ -24,10 +24,19 @@
 package edu.princeton.cs.algs4;
 
 /**
- *  The {@code Heap} class provides a static methods for heapsorting
- *  an array.
+ *  The {@code Heap} class provides a static method to sort an array
+ *  using <em>heapsort</em>.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
+ *  This implementation takes &Theta;(<em>n</em> log <em>n</em>) time
+ *  to sort any array of length <em>n</em> (assuming comparisons
+ *  take constant time). It makes at most 
+ *  2 <em>n</em> log<sub>2</sub> <em>n</em> compares.
+ *  <p>
+ *  This sorting algorithm is not stable.
+ *  It uses &Theta;(1) extra memory (not including the input array).
+ *  <p>
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/24pq">Section 2.4</a> of
  *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
@@ -44,11 +53,16 @@ public class Heap {
      */
     public static void sort(Comparable[] pq) {
         int n = pq.length;
+
+        // heapify phase
         for (int k = n/2; k >= 1; k--)
             sink(pq, k, n);
-        while (n > 1) {
-            exch(pq, 1, n--);
-            sink(pq, 1, n);
+
+        // sortdown phase
+        int k = n;
+        while (k > 1) {
+            exch(pq, 1, k--);
+            sink(pq, 1, k);
         }
     }
 
@@ -101,7 +115,7 @@ public class Heap {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *

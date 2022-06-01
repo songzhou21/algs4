@@ -2,8 +2,8 @@
  *  Compilation:  javac Quick3way.java
  *  Execution:    java Quick3way < input.txt
  *  Dependencies: StdOut.java StdIn.java
- *  Data files:   http://algs4.cs.princeton.edu/23quicksort/tiny.txt
- *                http://algs4.cs.princeton.edu/23quicksort/words3.txt
+ *  Data files:   https://algs4.cs.princeton.edu/23quicksort/tiny.txt
+ *                https://algs4.cs.princeton.edu/23quicksort/words3.txt
  *   
  *  Sorts a sequence of strings from standard input using 3-way quicksort.
  *   
@@ -27,8 +27,9 @@ package edu.princeton.cs.algs4;
  *  The {@code Quick3way} class provides static methods for sorting an
  *  array using quicksort with 3-way partitioning.
  *  <p>
- *  For additional documentation, see <a href="http://algs4.cs.princeton.edu/21elementary">Section 2.1</a> of
- *  <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
+ *  For additional documentation, see
+ *  <a href="https://algs4.cs.princeton.edu/23quicksort">Section 2.3</a>
+ *  of <i>Algorithms, 4th Edition</i> by Robert Sedgewick and Kevin Wayne.
  *
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
@@ -53,7 +54,7 @@ public class Quick3way {
         if (hi <= lo) return;
         int lt = lo, gt = hi;
         Comparable v = a[lo];
-        int i = lo;
+        int i = lo + 1;
         while (i <= gt) {
             int cmp = a[i].compareTo(v);
             if      (cmp < 0) exch(a, lt++, i++);
@@ -123,7 +124,7 @@ public class Quick3way {
 }
 
 /******************************************************************************
- *  Copyright 2002-2016, Robert Sedgewick and Kevin Wayne.
+ *  Copyright 2002-2020, Robert Sedgewick and Kevin Wayne.
  *
  *  This file is part of algs4.jar, which accompanies the textbook
  *
